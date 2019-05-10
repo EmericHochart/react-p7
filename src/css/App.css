@@ -1,0 +1,40 @@
+/* Optional: Makes the sample page fill the window. */
+header {
+    text-align:center;
+}
+main {
+    height:600px;
+    display: flex;
+}
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+    width: 45%;
+    margin: auto;
+    background-color: grey;
+    margin: 20px;    
+    border: 1px solid red;
+}
+#listeRestaurants {    
+    width: 45%;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 20px;
+    padding: 20px;    
+    border: 1px solid black;
+}
+
+#rating {
+    display : flex;    
+    width: 5%;
+    margin: 20px;
+    padding: 20px;
+}
+
+.starRating {
+    text-align: center;
+  }
+  
+i { 
+    color: darkgoldenrod;
+}
+
