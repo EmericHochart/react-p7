@@ -9,12 +9,19 @@ class Restaurant extends Component {
     numberRatings !== 0
       ? (averageRating = averageRating / numberRatings)
       : (averageRating = 0);
-
-    return (
-      <li>
+    // Filtered
+    var filter = this.props.filter.map((val, i) => [i, val]).filter(x=>x[1]===true);    
+    var filterMin = filter[0][0]+1;
+    var filterMax = filter[filter.length-1][0]+1;    
+    
+    if (averageRating>=filterMin && averageRating<=filterMax) {
+      return (<li>
         {this.props.name} : {averageRating}
-      </li>
-    );
+      </li>);
+    }
+    else
+    {return null;}
+    
   }
 }
 

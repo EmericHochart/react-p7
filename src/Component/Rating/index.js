@@ -11,7 +11,7 @@ class Rating extends Component {
         const currentStars = this.props.current;
         const listStar = currentStars.map((star,index) =>
         <Star key={index} index={index} light={star} onClick={this.handleLight} />);
-        return ( <div id="rating">
+        return ( <div id="rating">Filtre
             {listStar}
         </div> );
     }

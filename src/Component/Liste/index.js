@@ -12,6 +12,7 @@ class Liste extends Component {
               name={restaurant.restaurantName}
               key={restaurant.restaurantName}
               ratings={restaurant.ratings}
+              filter={this.props.filter}
             />
           ))}
         </ul>
