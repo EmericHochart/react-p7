@@ -6,16 +6,17 @@ class Liste extends Component {
     return (
       <div id="listeRestaurants">
         <h2>{this.props.nameList}</h2>
-        <ul>
-          {this.props.restaurants.map(restaurant => (
-            <Restaurant
-              name={restaurant.restaurantName}
-              key={restaurant.restaurantName}
-              ratings={restaurant.ratings}
-              filter={this.props.filter}
-            />
-          ))}
-        </ul>
+
+        {this.props.restaurants.map(restaurant => (
+          <Restaurant
+            name={restaurant.restaurantName}
+            address={restaurant.address}
+            key={restaurant.restaurantName}
+            ratings={restaurant.ratings}
+            lat={restaurant.lat}
+            lng={restaurant.long}
+          />
+        ))}
       </div>
     );
   }

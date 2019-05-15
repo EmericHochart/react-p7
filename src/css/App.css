@@ -3,13 +3,14 @@ header {
     text-align:center;
 }
 main {
-    height:600px;
+    height:auto;
     display: flex;
 }
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */
 #map {
     width: 45%;
+    height: 600px;
     margin: auto;
     background-color: grey;
     margin: 20px;    
@@ -23,11 +24,15 @@ main {
     border: 1px solid black;
 }
 
+#listeRestaurants img {
+    width:100%;
+}
+
 #rating {
     display : flex;    
-    width: 5%;
+    width: 10%;
     margin: 20px;
-    padding: 20px;
+    padding: auto;
 }
 
 .starRating {
@@ -37,4 +42,67 @@ main {
 i { 
     color: darkgoldenrod;
 }
+
+li {
+    text-decoration: none;
+}
+
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 0.5em;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.trueCollapse {
+
+}
+
+.falseCollapse {
+
+}
+
+.active, .collapsible:hover {
+    background-color: #ccc;
+}
+  
+.content {
+    padding: 0 18px;    
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.trueCollapse::before {
+    font-family: Consolas, monaco, monospace;
+    font-weight: bold;
+    font-size: 15px;
+    content: "-";
+    vertical-align: text-top;
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+    background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+  }
+
+.falseCollapse::before {
+    font-family: Consolas, monaco, monospace;
+    font-weight: bold;
+    font-size: 15px;
+    content: "+";
+    vertical-align: text-top;
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+    background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+}
+
 

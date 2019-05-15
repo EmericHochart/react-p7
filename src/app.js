@@ -6,9 +6,6 @@ import Rating from "./Component/Rating";
 
 //import "whatwg-fetch";*/
 
-
-
-
 var data = require("./data/restaurant.json");
 
 class App extends Component {
@@ -17,102 +14,152 @@ class App extends Component {
     this.state = {
       restaurants: data,
       restaurantsDisplayed: [],
+      restaurantsFiltered: [],
       starMin: 1,
       starMax: 5,
-      starCurrent : [true,true,true,true,true],
+      starCurrent: [true, true, true, true, true],
       google: null,
-      loaded: false      
-    };    
+      loaded: false
+    };
   }
-  
+
   // Arrow fx for binding
-  _handleChange = (restaurants) => {    
+  _handleChange = restaurants => {
+    // Filtered
+    var filter = this.state.starCurrent
+      .map((val, i) => [i, val])
+      .filter(x => x[1] === true);
+    var filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
+    var filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
+    let restaurantsFiltered = [];
+    restaurants.map(restaurant => {
+      // Calcul de la moyenne des commentaires
+      let averageRating = 0;
+      let numberRatings = restaurant.ratings.length;
+      restaurant.ratings.map(rating => (averageRating += rating.stars));
+      numberRatings !== 0
+        ? (averageRating = averageRating / numberRatings)
+        : (averageRating = 0);
+
+      if (averageRating >= filterMin && averageRating <= filterMax) {
+        restaurantsFiltered.push(restaurant);
+      }
+    });
+
     // On met à jour la liste des restaurants à afficher
     this.setState({
-      restaurantsDisplayed: restaurants
-    })
-  }
-  handleRating = (index) => {
-    
+      restaurantsDisplayed: restaurants,
+      restaurantsFiltered: restaurantsFiltered
+    });
+  };
+
+  handleRating = index => {
     let current = this.state.starCurrent;
-    current[index]===true?current[index]=false:current[index]=true;
-    
-    if (current[index]===true) {
-      let isExistTrue=false;
-      for (let i=0; i<index;i++){
-        if (current[i]===true||isExistTrue===true){
-          current[i]=true;
-          isExistTrue=true;
-        };
-      };
-      if (isExistTrue===false) {
-        for (let i=current.length-1; i>index;i--){
-          if (current[i]===true||isExistTrue===true){
-            current[i]=true;
-            isExistTrue=true;
-          };
-        };  
+    current[index] === true
+      ? (current[index] = false)
+      : (current[index] = true);
+
+    if (current[index] === true) {
+      let isExistTrue = false;
+      for (let i = 0; i < index; i++) {
+        if (current[i] === true || isExistTrue === true) {
+          current[i] = true;
+          isExistTrue = true;
+        }
+      }
+      if (isExistTrue === false) {
+        for (let i = current.length - 1; i > index; i--) {
+          if (current[i] === true || isExistTrue === true) {
+            current[i] = true;
+            isExistTrue = true;
+          }
+        }
+      }
+    } else {
+      var isExistTrue = false;
+      for (let i = 0; i < index; i++) {
+        if (current[i] === true) {
+          isExistTrue = true;
+        }
+      }
+      if (isExistTrue === true) {
+        for (let i = index; i < current.length; i++) {
+          current[i] = false;
+        }
       }
     }
-    else {
-      var isExistTrue=false;
-      for (let i=0; i<index;i++){
-        if (current[i]===true){
-          isExistTrue=true;
-        };
-      };
-      if (isExistTrue===true) {
-        for (let i=index; i<current.length;i++){
-          current[i]=false;
-          };
-      };      
-    }        
-    this.setState({
-      starCurrent : current
-    });
-  }
- 
 
-  // VERIFIER ICI L'UTILITE ET LA PERTINENCE
+    // Filtered
+    var filter = current.map((val, i) => [i, val]).filter(x => x[1] === true);
+    var filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
+    var filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
+
+    // Check Restaurants displayed
+    let restaurantsDisplayed = this.state.restaurantsDisplayed;
+    let restaurantsFiltered = [];
+
+    restaurantsDisplayed.map(restaurant => {
+      // Calcul de la moyenne des commentaires
+      let averageRating = 0;
+      let numberRatings = restaurant.ratings.length;
+      restaurant.ratings.map(rating => (averageRating += rating.stars));
+      numberRatings !== 0
+        ? (averageRating = averageRating / numberRatings)
+        : (averageRating = 0);
+
+      if (averageRating >= filterMin && averageRating <= filterMax) {
+        restaurantsFiltered.push(restaurant);
+      }
+    });
+
+    this.setState({
+      starCurrent: current,
+      restaurantsFiltered: restaurantsFiltered
+    });
+  };
+
   componentDidMount() {
-      
     this.setState({
       google: window.google
-    })
+    });
   }
 
   componentDidUpdate(prevState) {
-    
-    if(window.google !== prevState.google && this.state.loaded === false) {
-      
+    if (window.google !== prevState.google && this.state.loaded === false) {
       this.setState({
         loaded: true
-      })
+      });
     }
   }
 
-  
-
   render() {
-    
     return (
-      
       <div>
         <header>
           <h1>Greedy POV</h1>
         </header>
         <main>
-            
-          {this.state.loaded && <MapGoogle google={this.state.google} restaurants={this.state.restaurants} handleChange={this._handleChange}/>}            
-                    
-          <Rating min={this.state.starMin} max={this.state.starMax} current={this.state.starCurrent} onClick={this.handleRating} />          
+          {this.state.loaded && (
+            <MapGoogle
+              google={this.state.google}
+              restaurants={this.state.restaurants}
+              restaurantsDisplayed={this.state.restaurantsDisplayed}
+              restaurantsFiltered={this.state.restaurantsFiltered}
+              handleChange={this._handleChange}
+            />
+          )}
+
+          <Rating
+            min={this.state.starMin}
+            max={this.state.starMax}
+            current={this.state.starCurrent}
+            onClick={this.handleRating}
+          />
 
           <Liste
             nameList="Liste des Restaurants"
-            restaurants={this.state.restaurantsDisplayed}
-            filter={this.state.starCurrent}
+            restaurants={this.state.restaurantsFiltered}
           />
-
         </main>
       </div>
     );

@@ -1,28 +1,36 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 
-
-// var infoWindow;
-
-
 class MapGoogle extends Component {
   
   static propTypes = { 
     restaurants: PropTypes.array.isRequired,
+    restaurantsDisplayed: PropTypes.array.isRequired,
+    restaurantsFiltered: PropTypes.array.isRequired,
     handleChange: PropTypes.func.isRequired,
     google: PropTypes.object
   };
-
 
   constructor(props){
     super(props) 
     this.state={
       map: null,
       loaded: false,
-      eventBounds:false
+      eventBounds:false,
+      markers:[]
     }
   }
 
+  // Sets the map on all markers in the array.
+  setMapOnAll(map) {
+    for (var i = 0; i < this.state.markers.length; i++) {
+      this.state.markers[i].setMap(map);
+    };    
+    this.setState({
+      markers: []
+    });
+  }
+  
   
   handleBoundsChanged = event => {
     
@@ -30,7 +38,11 @@ class MapGoogle extends Component {
     var map = this.state.map;
     var limite = map.getBounds();
     var restaurantDisplayed = [];
+    var markers = this.state.markers;
     
+    // Remove all Markers
+    this.setMapOnAll(null);    
+
     // On parcourt la liste des restaurants
     this.props.restaurants.forEach(function(restaurant) {
     let coordRestaurant = { lat: restaurant.lat, lng: restaurant.long };
@@ -40,13 +52,17 @@ class MapGoogle extends Component {
         restaurantDisplayed.push(restaurant);
         // Affichage des restaurants grâce à leurs coordonnées sur la map via un marker
         let latLng = new google.maps.LatLng(restaurant.lat, restaurant.long);
-        new google.maps.Marker({
+        var marker = new google.maps.Marker({
           position: latLng,
           map: map
         });
+        markers.push(marker);
       }
     });
     this.props.handleChange(restaurantDisplayed);
+    this.setState({
+      markers: markers
+    });
   }
 
   init(){
@@ -108,8 +124,7 @@ class MapGoogle extends Component {
         map: map,
         loaded: true
       });
-  }
-  
+  }  
   
   componentDidMount() {    
     if (this.props.google && this.state.loaded === false) {
