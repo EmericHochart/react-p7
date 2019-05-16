@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import Restaurant from "../Restaurant";
 
 class Liste extends Component {
+  constructor(props) {
+    super(props);    
+  }
+
+  addRating = (comment, stars, lat, lng) => {      
+    this.props.addRating(comment,stars,lat,lng);
+  }
+  
   render() {
     return (
       <div id="listeRestaurants">
@@ -15,6 +23,7 @@ class Liste extends Component {
             ratings={restaurant.ratings}
             lat={restaurant.lat}
             lng={restaurant.long}
+            addRating={this.addRating}
           />
         ))}
       </div>

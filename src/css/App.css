@@ -77,6 +77,12 @@ li {
     background-color: #f1f1f1;
 }
 
+.addRating {
+    background-color: yellow;
+    padding: 20px;
+    margin : 5px;
+}
+
 .trueCollapse::before {
     font-family: Consolas, monaco, monospace;
     font-weight: bold;

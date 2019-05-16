@@ -53,7 +53,7 @@ class App extends Component {
     });
   };
 
-  handleRating = index => {
+  handleFilter = index => {
     let current = this.state.starCurrent;
     current[index] === true
       ? (current[index] = false)
@@ -118,6 +118,21 @@ class App extends Component {
     });
   };
 
+  _addRating = (comment, stars, lat, lng) => {
+    
+    var restaurants = this.state.restaurants;
+    
+    function isLocation(restaurant) {
+      if (restaurant.lat == lat && restaurant.long == lng) {
+      return restaurant;}
+    }
+        
+    var index = restaurants.findIndex(isLocation);
+    restaurants[index].ratings.push({"stars": stars,"comment": comment});
+
+  }
+
+
   componentDidMount() {
     this.setState({
       google: window.google
@@ -153,12 +168,13 @@ class App extends Component {
             min={this.state.starMin}
             max={this.state.starMax}
             current={this.state.starCurrent}
-            onClick={this.handleRating}
+            onClick={this.handleFilter}
           />
 
           <Liste
             nameList="Liste des Restaurants"
             restaurants={this.state.restaurantsFiltered}
+            addRating={this._addRating}
           />
         </main>
       </div>
