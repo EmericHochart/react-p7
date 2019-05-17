@@ -36,19 +36,23 @@ class App extends Component {
     var filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
     var filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
     let restaurantsFiltered = [];
-    restaurants.map(restaurant => {
-      // Calcul de la moyenne des commentaires
-      let averageRating = 0;
-      let numberRatings = restaurant.ratings.length;
-      restaurant.ratings.map(rating => (averageRating += rating.stars));
-      numberRatings !== 0
-        ? (averageRating = averageRating / numberRatings)
-        : (averageRating = 0);
+    if (filter.length === 5) {      
+      restaurantsFiltered = restaurants;
+    } else {
+      restaurants.map(restaurant => {
+        // Calcul de la moyenne des commentaires
+        let averageRating = 0;
+        let numberRatings = restaurant.ratings.length;
+        restaurant.ratings.map(rating => (averageRating += rating.stars));
+        numberRatings !== 0
+          ? (averageRating = averageRating / numberRatings)
+          : (averageRating = 0);
 
-      if (averageRating >= filterMin && averageRating <= filterMax) {
-        restaurantsFiltered.push(restaurant);
-      }
-    });
+        if (averageRating >= filterMin && averageRating <= filterMax) {
+          restaurantsFiltered.push(restaurant);
+        }
+      });
+    };
 
     // On met à jour la liste des restaurants à afficher
     this.setState({
@@ -96,27 +100,29 @@ class App extends Component {
     // Filtered
     var filter = current.map((val, i) => [i, val]).filter(x => x[1] === true);
     var filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
-    var filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;    
+    var filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
     // Check Restaurants displayed
     let restaurantsDisplayed = this.state.restaurantsDisplayed;
-    let restaurantsFiltered = [];
+    let restaurantsFiltered = [];    
+    // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0
+    if (filter.length === 5) {      
+      restaurantsFiltered = this.state.restaurantsDisplayed;
+    } else {
+      restaurantsDisplayed.map(restaurant => {
+        // Calcul de la moyenne des commentaires
+        let averageRating = 0;
+        let numberRatings = restaurant.ratings.length;
+        restaurant.ratings.map(rating => (averageRating += rating.stars));
+        numberRatings !== 0
+          ? (averageRating = averageRating / numberRatings)
+          : (averageRating = 0);
+        // Fix Restaurants with 0 ratings
 
-    restaurantsDisplayed.map(restaurant => {
-      // Calcul de la moyenne des commentaires
-      let averageRating = 0;
-      let numberRatings = restaurant.ratings.length;
-      restaurant.ratings.map(rating => (averageRating += rating.stars));
-      numberRatings !== 0
-        ? (averageRating = averageRating / numberRatings)
-        : (averageRating = 0);
-      // Fix Restaurants with 0 ratings
-      
-      
-      if (averageRating >= filterMin && averageRating <= filterMax) {
-        restaurantsFiltered.push(restaurant);
-      }
-    });
-
+        if (averageRating >= filterMin && averageRating <= filterMax) {
+          restaurantsFiltered.push(restaurant);
+        }
+      });
+    }
     this.setState({
       starCurrent: current,
       restaurantsFiltered: restaurantsFiltered
@@ -127,7 +133,7 @@ class App extends Component {
     var restaurants = this.state.restaurants;
 
     function isLocation(restaurant) {
-      if (restaurant.lat == lat && restaurant.long == lng) {
+      if (restaurant.lat === lat && restaurant.long === lng) {
         return restaurant;
       }
     }
@@ -136,7 +142,7 @@ class App extends Component {
     restaurants[index].ratings.push({ stars: stars, comment: comment });
   };
 
-  _addRestaurant = (lat, lng) => {    
+  _addRestaurant = (lat, lng) => {
     this.setState({
       displayAddRestaurant: true,
       newLat: lat,
@@ -144,34 +150,37 @@ class App extends Component {
     });
   };
 
-  _addNewRestaurant = (name,address,lat,lng) => {
-    // Verifier existence d'un restaurant !!!!!
+  _addNewRestaurant = (name, address, lat, lng) => {
     var restaurant = {
-      "restaurantName": name,
-      "address": address,
-      "lat": lat,
-      "long": lng,
-      "ratings": []
-    }
+      restaurantName: name,
+      address: address,
+      lat: lat,
+      long: lng,
+      ratings: []
+    };
     var restaurants = this.state.restaurants;
+    var restaurantsDisplayed = this.state.restaurantsDisplayed;
     var isRestaurantExist = false;
-    restaurants.map((item)=>{
-      if(item.restaurantName == name && item.address == address) {        
+    restaurants.map(item => {
+      if (item.restaurantName === name && item.address === address) {
         isRestaurantExist = true;
-      };
-    })
-    isRestaurantExist === false ? restaurants.push(restaurant) : console.log('restaurant existant');
-
-    // Manage add Marker !!!!!
-    // TODO
-    
+      }
+    });
+    if (isRestaurantExist === false) {
+      restaurants.push(restaurant);
+      restaurantsDisplayed.push(restaurant);
+    } else {
+      console.log("restaurant existant");
+    }
 
     this.setState({
-      displayAddRestaurant:false,
-      restaurants:restaurants,
-      starCurrent: [false,false,false,false,false]
-    })
-  }
+      displayAddRestaurant: false,
+      restaurants: restaurants,
+      restaurantsDisplayed: restaurantsDisplayed,
+      restaurantsFiltered: restaurantsDisplayed,
+      starCurrent: [true, true, true, true, true]
+    });
+  };
 
   componentDidMount() {
     this.setState({
@@ -213,7 +222,11 @@ class App extends Component {
           />
 
           {this.state.displayAddRestaurant ? (
-            <AddRestaurant lat={this.state.newLat} lng={this.state.newLng} addNewRestaurant={this._addNewRestaurant}/>              
+            <AddRestaurant
+              lat={this.state.newLat}
+              lng={this.state.newLng}
+              addNewRestaurant={this._addNewRestaurant}
+            />
           ) : (
             <Liste
               nameList="Liste des Restaurants"

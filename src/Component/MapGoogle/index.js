@@ -22,27 +22,46 @@ class MapGoogle extends Component {
     }
   }
 
-  // Sets the map on all markers in the array. ::::::::::::: BUG
-  setMapOnAll(map) {
-    for (var i = 0; i < this.state.markers.length; i++) {
-      this.state.markers[i].setMap(map);
-    };    
+  // Sets the map on all markers in the array. 
+  setMapOnAll(map) {    
+    var markers = this.state.markers;
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    };
+  }
+  // Clear Markers
+  clearMarkers() {    
+    this.setMapOnAll(null);
     this.setState({
       markers: []
     });
   }
-  
-  
-  handleBoundsChanged = event => {
-    
+
+  addMarker(restaurant) {   
     var google = this.props.google;
     var map = this.state.map;
-    var limite = map.getBounds();
-    var restaurantDisplayed = [];
+    var location = {lat:restaurant.lat,lng:restaurant.long};
     var markers = this.state.markers;
-    
-    // Remove all Markers :::::::::::::::: BUG
-    this.setMapOnAll(null);    
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      animation: google.maps.Animation.DROP,
+    });
+    markers.push(marker);
+    this.setState({
+      markers: markers
+    });
+    //map.panTo(location);
+    // A placer ailleurs !!!!!! sinon minor bug
+  }  
+  
+  handleBoundsChanged = event => {
+    var map = this.state.map;
+    var limite = map.getBounds();
+    var restaurantDisplayed = [];    
+    var that=this;
+    // Remove all Markers 
+    this.clearMarkers();    
 
     // On parcourt la liste des restaurants
     this.props.restaurants.forEach(function(restaurant) {
@@ -50,20 +69,14 @@ class MapGoogle extends Component {
     // Affiche le restaurant dans la liste si celui-ci est sur la carte
     if (limite.contains(coordRestaurant)) {
         // On ajoute le restaurant dans la liste des restaurants à afficher
-        restaurantDisplayed.push(restaurant);
-        // Affichage des restaurants grâce à leurs coordonnées sur la map via un marker
-        let latLng = new google.maps.LatLng(restaurant.lat, restaurant.long);
-        var marker = new google.maps.Marker({
-          position: latLng,
-          map: map
-        });
-        markers.push(marker);
+        restaurantDisplayed.push(restaurant);        
       }
     });
     this.props.handleChange(restaurantDisplayed);
-    this.setState({
-      markers: markers
+    this.props.restaurantsFiltered.forEach(function(restaurant){      
+      that.addMarker(restaurant);
     });
+    
   }
 
   init(){
@@ -73,16 +86,8 @@ class MapGoogle extends Component {
         zoom: 10,
         center: { lat: 48.8737815, lng: 2.3501649 },
         mapTypeId: "roadmap"
-      })
-      
-    // The location by Default : Restaurant Bronco in Paris
-    var defaultLocation = { lat: 48.8737815, lng: 2.3501649 };
+      })    
     
-    // The marker, positioned at defaultLocation
-    new google.maps.Marker({
-      position: defaultLocation,
-      map: map
-    });
 
     // Fenêtre d'information type tooltip sur la position géolocalisée de l'utilisateur
     var infoWindow = new google.maps.InfoWindow();
@@ -168,9 +173,7 @@ class MapGoogle extends Component {
     infoWindow.open(this.state.map);
   }
 
-  render() {
-    
-   
+  render() {  
     return (<div id="map"/>);
   }
 }

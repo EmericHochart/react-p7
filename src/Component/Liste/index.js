@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import Restaurant from "../Restaurant";
 
 class Liste extends Component {
-  constructor(props) {
-    super(props);    
-  }
-
+  
   addRating = (comment, stars, lat, lng) => {      
     this.props.addRating(comment,stars,lat,lng);
   }
@@ -15,11 +12,11 @@ class Liste extends Component {
       <div id="listeRestaurants">
         <h2>{this.props.nameList}</h2>
 
-        {this.props.restaurants.map(restaurant => (
+        {this.props.restaurants.map(restaurant => (          
           <Restaurant
             name={restaurant.restaurantName}
             address={restaurant.address}
-            key={restaurant.restaurantName}
+            key={restaurant.lat+":"+restaurant.long}
             ratings={restaurant.ratings}
             lat={restaurant.lat}
             lng={restaurant.long}

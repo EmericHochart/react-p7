@@ -48,11 +48,11 @@ class Restaurant extends Component {
     var display = this.state.displayAddRating;
     display = !display;
     var comment = this.state.valueTextArea;
-    comment = comment=='Merci de donner un commentaire'?'Pas de commentaire':comment;
+    comment = comment==='Merci de donner un commentaire'?'Pas de commentaire':comment;
     var current = this.state.starCurrent;
-    var index = current[0]==false ? 0 : current.map((val, i) => [i, val]).filter(([i, val]) => val === true).pop()[0];
+    var index = current[0]===false ? 0 : current.map((val, i) => [i, val]).filter(([i, val]) => val === true).pop()[0];
     // TO DO s'il n'existe pas de true !!!
-    var stars = current[0]==false ? 0 : (index + 1);
+    var stars = current[0]===false ? 0 : (index + 1);
     var lat = this.props.lat;
     var lng = this.props.lng;
    
@@ -126,7 +126,7 @@ class Restaurant extends Component {
           <div className="content">
             <p>{this.props.address} <br></br> <button onClick={this.displayAddRating}>Donner un avis</button></p>
                         
-            <img src={url} />
+            <img src={url} alt={this.props.name}/>
             <ul>
               {this.props.ratings.map((rating, index) => (
                 <li key={"star" + index}>
