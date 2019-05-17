@@ -8,7 +8,8 @@ class MapGoogle extends Component {
     restaurantsDisplayed: PropTypes.array.isRequired,
     restaurantsFiltered: PropTypes.array.isRequired,
     handleChange: PropTypes.func.isRequired,
-    google: PropTypes.object
+    google: PropTypes.object,
+    addRestaurant: PropTypes.func.isRequired,
   };
 
   constructor(props){
@@ -21,7 +22,7 @@ class MapGoogle extends Component {
     }
   }
 
-  // Sets the map on all markers in the array.
+  // Sets the map on all markers in the array. ::::::::::::: BUG
   setMapOnAll(map) {
     for (var i = 0; i < this.state.markers.length; i++) {
       this.state.markers[i].setMap(map);
@@ -40,7 +41,7 @@ class MapGoogle extends Component {
     var restaurantDisplayed = [];
     var markers = this.state.markers;
     
-    // Remove all Markers
+    // Remove all Markers :::::::::::::::: BUG
     this.setMapOnAll(null);    
 
     // On parcourt la liste des restaurants
@@ -119,6 +120,14 @@ class MapGoogle extends Component {
       // Browser doesn't support Geolocation
       this.handleLocationError(false, infoWindow, map.getCenter());
     }
+
+    // Add event on click
+    map.addListener('click', e => {      
+      var lat = e.latLng.lat();
+      var lng = e.latLng.lng();
+      this.props.addRestaurant(lat,lng);
+    });
+
     
     this.setState({
         map: map,
