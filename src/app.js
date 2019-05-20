@@ -5,8 +5,6 @@ import Liste from "./Component/Liste";
 import Rating from "./Component/Rating";
 import AddRestaurant from "./Component/AddRestaurant";
 
-//import "whatwg-fetch";*/
-
 var data = require("./data/restaurant.json");
 
 class App extends Component {
@@ -29,15 +27,14 @@ class App extends Component {
 
   // Arrow fx for binding
   _handleChange = restaurants => {
-    // Filtered
-    var filter = this.state.starCurrent
-      .map((val, i) => [i, val])
-      .filter(x => x[1] === true);
-    var filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
-    var filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
+    let filterMin = this.state.starCurrent.indexOf(true);
+    let filterMax = this.state.starCurrent.lastIndexOf(true);
     let restaurantsFiltered = [];
-    if (filter.length === 5) {      
-      restaurantsFiltered = restaurants;
+    if (filterMin === -1) {
+      this.setState({
+        restaurantsDisplayed: restaurants,
+        restaurantsFiltered: restaurants
+      });
     } else {
       restaurants.map(restaurant => {
         // Calcul de la moyenne des commentaires
@@ -47,18 +44,18 @@ class App extends Component {
         numberRatings !== 0
           ? (averageRating = averageRating / numberRatings)
           : (averageRating = 0);
-
-        if (averageRating >= filterMin && averageRating <= filterMax) {
-          restaurantsFiltered.push(restaurant);
+        if (
+          (averageRating >= filterMin + 1 && averageRating <= filterMax + 1) ||
+          numberRatings === 0
+        ) {
+          restaurantsFiltered = [...restaurantsFiltered, restaurant];
         }
       });
-    };
-
-    // On met à jour la liste des restaurants à afficher
-    this.setState({
-      restaurantsDisplayed: restaurants,
-      restaurantsFiltered: restaurantsFiltered
-    });
+      this.setState({
+        restaurantsDisplayed: restaurants,
+        restaurantsFiltered: restaurantsFiltered
+      });
+    }
   };
 
   handleFilter = index => {
@@ -84,7 +81,7 @@ class App extends Component {
         }
       }
     } else {
-      var isExistTrue = false;
+      let isExistTrue = false;
       for (let i = 0; i < index; i++) {
         if (current[i] === true) {
           isExistTrue = true;
@@ -98,14 +95,14 @@ class App extends Component {
     }
 
     // Filtered
-    var filter = current.map((val, i) => [i, val]).filter(x => x[1] === true);
-    var filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
-    var filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
+    let filter = current.map((val, i) => [i, val]).filter(x => x[1] === true);
+    let filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
+    let filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
     // Check Restaurants displayed
     let restaurantsDisplayed = this.state.restaurantsDisplayed;
-    let restaurantsFiltered = [];    
+    let restaurantsFiltered = [];
     // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0
-    if (filter.length === 5) {      
+    if (filter.length === 5) {
       restaurantsFiltered = this.state.restaurantsDisplayed;
     } else {
       restaurantsDisplayed.map(restaurant => {
@@ -130,16 +127,18 @@ class App extends Component {
   };
 
   _addRating = (comment, stars, lat, lng) => {
-    var restaurants = this.state.restaurants;
-
-    function isLocation(restaurant) {
+    let restaurants = this.state.restaurants;
+    let index = this.state.restaurants.findIndex(restaurant => {
       if (restaurant.lat === lat && restaurant.long === lng) {
         return restaurant;
       }
-    }
-
-    var index = restaurants.findIndex(isLocation);
-    restaurants[index].ratings.push({ stars: stars, comment: comment });
+    });
+    index === -1
+      ? console.log("restaurant inexistant")
+      : restaurants[index].ratings.push({ stars: stars, comment: comment });
+    this.setState({
+      restaurants: restaurants
+    });
   };
 
   _addRestaurant = (lat, lng) => {
@@ -151,35 +150,31 @@ class App extends Component {
   };
 
   _addNewRestaurant = (name, address, lat, lng) => {
-    var restaurant = {
+    // On construit l'objet restaurant
+    let restaurant = {
       restaurantName: name,
       address: address,
       lat: lat,
       long: lng,
       ratings: []
     };
-    var restaurants = this.state.restaurants;
-    var restaurantsDisplayed = this.state.restaurantsDisplayed;
-    var isRestaurantExist = false;
-    restaurants.map(item => {
+    // Si le restaurant n'existe pas, on l'ajoute sinon on indique qu'il existe déjà
+    this.state.restaurants.findIndex(item => {
       if (item.restaurantName === name && item.address === address) {
-        isRestaurantExist = true;
+        return item;
       }
-    });
-    if (isRestaurantExist === false) {
-      restaurants.push(restaurant);
-      restaurantsDisplayed.push(restaurant);
-    } else {
-      console.log("restaurant existant");
-    }
-
-    this.setState({
-      displayAddRestaurant: false,
-      restaurants: restaurants,
-      restaurantsDisplayed: restaurantsDisplayed,
-      restaurantsFiltered: restaurantsDisplayed,
-      starCurrent: [true, true, true, true, true]
-    });
+    }) === -1
+      ? this.setState({
+          displayAddRestaurant: false,
+          restaurants: [...this.state.restaurants, restaurant],
+          restaurantsDisplayed: [
+            ...this.state.restaurantsDisplayed,
+            restaurant
+          ],
+          restaurantsFiltered: [...this.state.restaurantsDisplayed, restaurant],
+          starCurrent: [true, true, true, true, true]
+        })
+      : console.log("restaurant existant");
   };
 
   componentDidMount() {

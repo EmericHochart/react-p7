@@ -4,6 +4,7 @@ import Restaurant from "../Restaurant";
 class Liste extends Component {
   
   addRating = (comment, stars, lat, lng) => {      
+    // On envoie en paramètre le commentaire, la note et les coordonnées
     this.props.addRating(comment,stars,lat,lng);
   }
   

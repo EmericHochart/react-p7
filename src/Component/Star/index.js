@@ -4,8 +4,8 @@ class Star extends Component {
     
     // arrow kx for binding
     handleClick = () => {
-        let index = this.props.index;
-        this.props.onClick(index);
+        // On envoie l'index de l'étoile        
+        this.props.onClick(this.props.index);
     }
 
     render() { 

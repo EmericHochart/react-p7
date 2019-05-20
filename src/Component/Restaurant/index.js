@@ -19,95 +19,81 @@ class Restaurant extends Component {
       starCurrent: [false, false, false, false, false],
       starMin: 1,
       starMax: 5,
-      valueTextArea: 'Merci de donner un commentaire'
+      valueTextArea: "Merci de donner un commentaire"
     };
   }
 
   collapse = () => {
-    var collapse = this.state.isCollapse;
-    collapse = !collapse;
-    var display = this.state.displayAddRating;
-    if (display === true) {
-      display = !display;
-    }
+    // Mise à jour de l'état local
     this.setState({
-      isCollapse: collapse,
-      displayAddRating: display
+      isCollapse: !this.state.isCollapse,
+      displayAddRating:
+        this.state.displayAddRating === true
+          ? !this.state.displayAddRating
+          : this.state.displayAddRating
     });
   };
 
   displayAddRating = () => {
-    var display = this.state.displayAddRating;
-    display = !display;
+    // Mise à jour de l'état local
     this.setState({
-      displayAddRating: display
+      displayAddRating: !this.state.displayAddRating
     });
-  }
+  };
 
   rate = () => {
-    var display = this.state.displayAddRating;
-    display = !display;
-    var comment = this.state.valueTextArea;
-    comment = comment==='Merci de donner un commentaire'?'Pas de commentaire':comment;
-    var current = this.state.starCurrent;
-    var index = current[0]===false ? 0 : current.map((val, i) => [i, val]).filter(([i, val]) => val === true).pop()[0];
-    // TO DO s'il n'existe pas de true !!!
-    var stars = current[0]===false ? 0 : (index + 1);
-    var lat = this.props.lat;
-    var lng = this.props.lng;
-   
-    this.props.addRating(comment,stars,lat,lng);
-    
+    // On récupère la valeur du textarea
+    let comment =
+      this.state.valueTextArea === "Merci de donner un commentaire"
+        ? "Pas de commentaire"
+        : this.state.valueTextArea;
+    // Si la première valeur de starCurrent est false alors stars = 0 sinon on récupère le dernier indice dont la valeur est true (remarque : index = -1 => stars = 0)
+    let stars =
+      this.state.starCurrent[0] === false
+        ? 0
+        : this.state.starCurrent.lastIndexOf(true) + 1;
+    // On passe en paramètre le commentaire, la note et les coordonnées du restaurant
+    this.props.addRating(comment, stars, this.props.lat, this.props.lng);
+    // Mise à jour de l'état local
     this.setState({
-      displayAddRating: display,
-      valueTextArea: 'Merci de donner un commentaire'
+      displayAddRating: !this.state.displayAddRating,
+      valueTextArea: "Merci de donner un commentaire"
     });
-  }
+  };
 
   handleRating = index => {
-    var current = this.state.starCurrent;
-    current[index]===true?current[index]=false:current[index]=true;
-    
-    if (current[index]===true) {
-      for (let i=0; i<index;i++){
-        current[i]=true;
-        };
-    }
-    else {      
-      for (let i=index; i<current.length;i++){
-        current[i]= false;
-      };
-    };
-        
+    // Mise à jour de l'état local
+    // Si l'étoile était allumée, on l'éteint et on éteint les étoiles suivantes
+    // Sinon l'étoile était éteinte, on l'allume et on allume les étoiles précédentes
     this.setState({
-      starCurrent : current
+      starCurrent:
+        this.state.starCurrent[index] === true
+          ? this.state.starCurrent.fill(
+              false,
+              index,
+              this.state.starCurrent.length
+            )
+          : this.state.starCurrent.fill(true, 0, index + 1)
     });
-
-  }
+  };
 
   handleChangeTextArea = event => {
-    this.setState({valueTextArea: event.target.value});
-  }
+    // Mise à jour de l'état local
+    this.setState({ valueTextArea: event.target.value });
+  };
 
   render() {
     // Calcul de la moyenne des commentaires
-    var averageRating = 0;
-    var numberRatings = this.props.ratings.length;
+    let averageRating = 0;
+    let numberRatings = this.props.ratings.length;
     this.props.ratings.map(rating => (averageRating += rating.stars));
-    numberRatings !== 0
-      ? (averageRating = averageRating / numberRatings)
-      : (averageRating = 0);
     // On récupère les coordonnées
-    var location = this.props.lat + "," + this.props.lng;
+    let location = this.props.lat + "," + this.props.lng;
     // On récupère l'url de la photo google street view correspondant aux coordonnées
-    var url =
+    let url =
       "https://maps.googleapis.com/maps/api/streetview?size=600x600&location=" +
       location +
       "&key=APIKEY";
-
-    var current = this.state.starCurrent;
-    var min = this.state.starMin;
-    var max = this.state.starMax;
 
     return (
       <div>
@@ -120,13 +106,17 @@ class Restaurant extends Component {
           }
           onClick={this.collapse}
         >
-          {this.props.name} : {averageRating}
+          {this.props.name} :{" "}
+          {numberRatings !== 0 ? averageRating / numberRatings : "Pas d'avis"}
         </button>
         {this.state.isCollapse && !this.state.displayAddRating && (
           <div className="content">
-            <p>{this.props.address} <br></br> <button onClick={this.displayAddRating}>Donner un avis</button></p>
-                        
-            <img src={url} alt={this.props.name}/>
+            <p>
+              {this.props.address} <br />{" "}
+              <button onClick={this.displayAddRating}>Donner un avis</button>
+            </p>
+
+            <img src={url} alt={this.props.name} />
             <ul>
               {this.props.ratings.map((rating, index) => (
                 <li key={"star" + index}>
@@ -140,14 +130,20 @@ class Restaurant extends Component {
           <div className="content">
             <div className="addRating">
               Merci de noter le restaurant :
-              <Rating min={min} max={max} current={current} onClick={this.handleRating} />
-              <textarea value={this.state.valueTextArea} onChange={this.handleChangeTextArea} />
+              <Rating
+                min={this.state.starMin}
+                max={this.state.starMax}
+                current={this.state.starCurrent}
+                onClick={this.handleRating}
+              />
+              <textarea
+                value={this.state.valueTextArea}
+                onChange={this.handleChangeTextArea}
+              />
               <button onClick={this.rate}>Donner un avis</button>
-            </div> 
+            </div>
           </div>
         )}
-              
-
       </div>
     );
   }

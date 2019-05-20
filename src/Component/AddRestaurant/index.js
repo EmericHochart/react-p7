@@ -10,19 +10,19 @@ class AddRestaurant extends Component {
   }
   
   submitNewRestaurant = (event) => {
+    //  On annule l'action implicite d'envoi au serveur du formulaire concerné.
     event.preventDefault();
-    var name = this.state.valueName;
-    var address = this.state.valueAddress;
-    var lat = this.props.lat;
-    var lng = this.props.lng;
-    this.props.addNewRestaurant(name,address,lat,lng);
+    // On envoie en paramètre les coordonnées et les valeurs du formulaire    
+    this.props.addNewRestaurant(this.state.valueName,this.state.valueAddress,this.props.lat,this.props.lng);
   }
 
   handleChangeName = (event) => {
+    // Mise à jour de l'état local
     this.setState({valueName: event.target.value});
   }
 
   handleChangeAddress = (event) => {
+    // Mise à jour de l'état local
     this.setState({valueAddress: event.target.value});
   }
 

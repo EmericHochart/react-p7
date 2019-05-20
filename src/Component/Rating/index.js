@@ -3,7 +3,8 @@ import Star from '../Star';
 
 class Rating extends Component {
     
-    handleLight = (index) => {        
+    handleLight = (index) => {
+        // On envoie l'index de l'étoile sur laquelle on clique        
         this.props.onClick(index)
     }
 
