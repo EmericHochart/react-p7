@@ -20,13 +20,15 @@ class App extends Component {
       google: null,
       loaded: false,
       displayAddRestaurant: false,
+      newName: null,
+      newAddress: null,      
       newLat: null,
       newLng: null
     };
   }
 
   // Arrow fx for binding
-  _handleChange = restaurants => {
+  _handleChange = (restaurants) => {
     let filterMin = this.state.starCurrent.indexOf(true);
     let filterMax = this.state.starCurrent.lastIndexOf(true);
     let restaurantsFiltered = [];
@@ -45,8 +47,7 @@ class App extends Component {
           ? (averageRating = averageRating / numberRatings)
           : (averageRating = 0);
         if (
-          (averageRating >= filterMin + 1 && averageRating <= filterMax + 1) ||
-          numberRatings === 0
+          averageRating >= filterMin + 1 && averageRating <= filterMax + 1 
         ) {
           restaurantsFiltered = [...restaurantsFiltered, restaurant];
         }
@@ -94,15 +95,14 @@ class App extends Component {
       }
     }
 
-    // Filtered
-    let filter = current.map((val, i) => [i, val]).filter(x => x[1] === true);
-    let filterMin = filter.length === 0 ? 0 : filter[0][0] + 1;
-    let filterMax = filter.length === 0 ? 0 : filter[filter.length - 1][0] + 1;
+    // Filtered    
+    let filterMin = this.state.starCurrent.indexOf(true);
+    let filterMax = this.state.starCurrent.lastIndexOf(true);    
     // Check Restaurants displayed
     let restaurantsDisplayed = this.state.restaurantsDisplayed;
     let restaurantsFiltered = [];
-    // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0
-    if (filter.length === 5) {
+    // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0    
+    if (filterMin === -1) {
       restaurantsFiltered = this.state.restaurantsDisplayed;
     } else {
       restaurantsDisplayed.map(restaurant => {
@@ -115,7 +115,7 @@ class App extends Component {
           : (averageRating = 0);
         // Fix Restaurants with 0 ratings
 
-        if (averageRating >= filterMin && averageRating <= filterMax) {
+        if ((averageRating >= filterMin + 1)  && (averageRating <= filterMax + 1)) {
           restaurantsFiltered.push(restaurant);
         }
       });
@@ -142,10 +142,40 @@ class App extends Component {
   };
 
   _addRestaurant = (lat, lng) => {
-    this.setState({
-      displayAddRestaurant: true,
-      newLat: lat,
-      newLng: lng
+    let that=this;
+    let google = this.state.google;
+    let geocoder = new google.maps.Geocoder;
+    let latLng={lat:lat,lng:lng};
+    geocoder.geocode({'location': latLng}, function(results, status) {      
+      if (status === 'OK') {
+        if (results[0]) {          
+          that.setState({
+            displayAddRestaurant: true,
+            newAddress: results[0].formatted_address,
+            newName: '',      
+            newLat: results[0].geometry.location.lat(),
+            newLng: results[0].geometry.location.lng()
+          });
+        } else {
+          window.alert('Pas de résultat connu');
+          that.setState({
+            displayAddRestaurant: true, 
+            newName: '',
+            newAddress: '',     
+            newLat: lat,
+            newLng: lng
+          });          
+        }
+      } else {
+        window.alert('Echec du geocoder : ' + status);
+        that.setState({
+          displayAddRestaurant: true,
+          newName: '', 
+          newAddress: '',     
+          newLat: lat,
+          newLng: lng
+        });
+      };      
     });
   };
 
@@ -177,6 +207,29 @@ class App extends Component {
       : console.log("restaurant existant");
   };
 
+  _addRestaurantsAround = (restaurant) => {
+    let restaurantExist = false;
+    this.state.restaurants.forEach(function(item) {
+      if( item.lat === restaurant.lat && item.long === restaurant.long ){
+        restaurantExist = true;
+      }
+    });
+    if (restaurantExist === false) {
+      this.setState({
+      restaurants: [...this.state.restaurants,restaurant]
+      })
+    }   
+    
+  }
+
+  _changeName = (value) => {
+    this.setState({newName:value})
+  }
+
+  _changeAddress = (value) => {
+    this.setState({newAddress:value})
+  }
+
   componentDidMount() {
     this.setState({
       google: window.google
@@ -197,7 +250,7 @@ class App extends Component {
         <header>
           <h1>Greedy POV</h1>
         </header>
-        <main>
+        <main>          
           {this.state.loaded && (
             <MapGoogle
               google={this.state.google}
@@ -206,6 +259,7 @@ class App extends Component {
               restaurantsFiltered={this.state.restaurantsFiltered}
               handleChange={this._handleChange}
               addRestaurant={this._addRestaurant}
+              addRestaurantsAround={this._addRestaurantsAround}
             />
           )}
 
@@ -220,6 +274,10 @@ class App extends Component {
             <AddRestaurant
               lat={this.state.newLat}
               lng={this.state.newLng}
+              address={this.state.newAddress}
+              name={this.state.newName}
+              changeName={this._changeName}
+              changeAddress={this._changeAddress}
               addNewRestaurant={this._addNewRestaurant}
             />
           ) : (

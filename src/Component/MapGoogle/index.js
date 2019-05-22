@@ -15,9 +15,10 @@ class MapGoogle extends Component {
     super(props);
     this.state = {
       map: null,
+      service: null,
       loaded: false,
       eventBounds: false,
-      markers: []
+      markers: [],
     };
   }
 
@@ -53,28 +54,95 @@ class MapGoogle extends Component {
     // A placer ailleurs !!!!!! sinon minor bug
   }
 
-  handleBoundsChanged = event => {
-    var map = this.state.map;
-    var limite = map.getBounds();
-    var restaurantDisplayed = [];
-    var that = this;
+  handleBoundsChanged = event => {    
+    let map = this.state.map;
+    let limite = map.getBounds();    
+    let that = this;
+    let restaurantsDisplayed = [];
     // Remove all Markers
     this.clearMarkers();
 
+    // Si le service est chargé, on appelle la méthode nearbySearch
+    if (this.state.service && this.props.google) {    
+      let center = map.getCenter();
+      let lat = center.lat();
+      let lng = center.lng();
+      let location = { lat: lat, lng: lng };
+      // Request : find restaurant around location
+      let request = {
+        location: location,
+        radius: '800',
+        type: ['restaurant']
+      };    
+      this.state.service.nearbySearch(request, this.searchAround);
+    }   
+    
+    
+    
     // On parcourt la liste des restaurants
     this.props.restaurants.forEach(function(restaurant) {
       let coordRestaurant = { lat: restaurant.lat, lng: restaurant.long };
       // Affiche le restaurant dans la liste si celui-ci est sur la carte
       if (limite.contains(coordRestaurant)) {
         // On ajoute le restaurant dans la liste des restaurants à afficher
-        restaurantDisplayed.push(restaurant);
+        restaurantsDisplayed.push(restaurant);
       }
-    });
-    this.props.handleChange(restaurantDisplayed);
+    });  
+    
+
+
+    this.props.handleChange(restaurantsDisplayed);
     this.props.restaurantsFiltered.forEach(function(restaurant) {
       that.addMarker(restaurant);
     });
   };
+  
+
+  searchAround = (results, status) => {
+    let google = this.props.google;
+    
+
+    if (status === google.maps.places.PlacesServiceStatus.OK) {      
+      var lengthList = results.length>20?20:results.length; 
+      // We go through the list
+      for (var i = 0; i < lengthList; i++) {        
+        // Create Object Restaurant
+        var restaurant = {};
+        restaurant.restaurantName = results[i].name;
+        restaurant.address = results[i].vicinity;
+        restaurant.lat = results[i].geometry.location.lat();
+        restaurant.long = results[i].geometry.location.lng();  
+        restaurant.ratings = [];      
+        // Request : Recovery of rewiews and ratings
+        var request = {
+          placeId: results[i].place_id,
+          fields: ['reviews']
+        };         
+  
+        let service = this.state.service;
+        let addRestaurantsAround = this.props.addRestaurantsAround;
+        
+        service.getDetails(request, function(place, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // add condition on reviews
+            var reviews = (place.reviews!==null||!place.reviews)?place.reviews:[];         
+            if (reviews !== undefined) {
+              reviews.forEach(function(review){
+              var view = {};
+              view.stars = review.rating;
+              view.comment = review.text;
+              restaurant.ratings.push(view);
+            });
+            }
+                         
+            addRestaurantsAround(restaurant);                     
+          };
+        });
+        
+      }
+    }
+    
+  }
 
   init() {
     var google = this.props.google;
@@ -120,14 +188,15 @@ class MapGoogle extends Component {
 
     // Add event on click
     map.addListener("click", e => {
-      var lat = e.latLng.lat();
-      var lng = e.latLng.lng();
+      let lat = e.latLng.lat();
+      let lng = e.latLng.lng();
       this.props.addRestaurant(lat, lng);
     });
 
     this.setState({
       map: map,
-      loaded: true
+      loaded: true,
+      service : new google.maps.places.PlacesService(map)
     });
   }
 
@@ -147,7 +216,7 @@ class MapGoogle extends Component {
         this.handleBoundsChanged
       );
       this.setState({
-        eventBounds: true
+        eventBounds: true,
       });
     }
   }
