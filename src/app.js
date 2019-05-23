@@ -116,7 +116,7 @@ class App extends Component {
         // Fix Restaurants with 0 ratings
 
         if ((averageRating >= filterMin + 1)  && (averageRating <= filterMax + 1)) {
-          restaurantsFiltered.push(restaurant);
+          restaurantsFiltered = [...restaurantsFiltered,restaurant];
         }
       });
     }

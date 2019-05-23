@@ -107,7 +107,7 @@ class Restaurant extends Component {
           onClick={this.collapse}
         >
           {this.props.name} :{" "}
-          {numberRatings !== 0 ? averageRating / numberRatings : "Pas d'avis"}
+          {numberRatings !== 0 ? Math.round(averageRating / numberRatings*10) / 10 : "Pas d'avis"}
         </button>
         {this.state.isCollapse && !this.state.displayAddRating && (
           <div className="content">
