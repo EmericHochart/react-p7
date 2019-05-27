@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Rating from "../Rating";
+import {MERCI_DE_METTRE_UN_COMMENTAIRE, API_KEY}  from "../../constants";
 
 class Restaurant extends Component {
   static propTypes = {
@@ -27,10 +28,10 @@ class Restaurant extends Component {
     // Mise à jour de l'état local
     this.setState({
       isCollapse: !this.state.isCollapse,
-      displayAddRating:
-        this.state.displayAddRating === true
-          ? !this.state.displayAddRating
-          : this.state.displayAddRating
+      displayAddRating: 
+        !this.state.displayAddRating && this.state.isCollapse
+          ? true
+          : false
     });
   };
 
@@ -43,12 +44,12 @@ class Restaurant extends Component {
 
   rate = () => {
     // On récupère la valeur du textarea
-    let comment =
-      this.state.valueTextArea === "Merci de donner un commentaire"
+    const comment =
+      this.state.valueTextArea === MERCI_DE_METTRE_UN_COMMENTAIRE
         ? "Pas de commentaire"
-        : this.state.valueTextArea;
+        : this.state.valueTextArea;        
     // Si la première valeur de starCurrent est false alors stars = 0 sinon on récupère le dernier indice dont la valeur est true (remarque : index = -1 => stars = 0)
-    let stars =
+    const stars =
       this.state.starCurrent[0] === false
         ? 0
         : this.state.starCurrent.lastIndexOf(true) + 1;
@@ -57,7 +58,7 @@ class Restaurant extends Component {
     // Mise à jour de l'état local
     this.setState({
       displayAddRating: !this.state.displayAddRating,
-      valueTextArea: "Merci de donner un commentaire"
+      valueTextArea: MERCI_DE_METTRE_UN_COMMENTAIRE
     });
   };
 
@@ -84,16 +85,16 @@ class Restaurant extends Component {
 
   render() {
     // Calcul de la moyenne des commentaires
-    let averageRating = 0;
-    let numberRatings = this.props.ratings.length;
+    const numberRatings = this.props.ratings.length;
+    let averageRating = 0;    
     this.props.ratings.map(rating => (averageRating += rating.stars));
     // On récupère les coordonnées
-    let location = this.props.lat + "," + this.props.lng;
+    const location = this.props.lat + "," + this.props.lng;
     // On récupère l'url de la photo google street view correspondant aux coordonnées
     let url =
       "https://maps.googleapis.com/maps/api/streetview?size=600x600&location=" +
       location +
-      "&key=APIKEY";
+      "&key="+API_KEY;
 
     return (
       <div>

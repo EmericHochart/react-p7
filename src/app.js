@@ -16,19 +16,19 @@ class App extends Component {
       restaurantsFiltered: [],
       starMin: 1,
       starMax: 5,
-      starCurrent: [true, true, true, true, true],
+      starCurrent: [false, false, false, false, false],
       google: null,
       loaded: false,
       displayAddRestaurant: false,
       newName: null,
-      newAddress: null,      
+      newAddress: null,
       newLat: null,
       newLng: null
     };
   }
 
   // Arrow fx for binding
-  _handleChange = (restaurants) => {
+  _handleChange = restaurants => {
     let filterMin = this.state.starCurrent.indexOf(true);
     let filterMax = this.state.starCurrent.lastIndexOf(true);
     let restaurantsFiltered = [];
@@ -46,9 +46,7 @@ class App extends Component {
         numberRatings !== 0
           ? (averageRating = averageRating / numberRatings)
           : (averageRating = 0);
-        if (
-          averageRating >= filterMin + 1 && averageRating <= filterMax + 1 
-        ) {
+        if (averageRating >= filterMin + 1 && averageRating <= filterMax + 1) {
           restaurantsFiltered = [...restaurantsFiltered, restaurant];
         }
       });
@@ -60,48 +58,32 @@ class App extends Component {
   };
 
   handleFilter = index => {
+    // Manage Filter
+    let tampon = null;
     let current = this.state.starCurrent;
     current[index] === true
       ? (current[index] = false)
       : (current[index] = true);
 
     if (current[index] === true) {
-      let isExistTrue = false;
-      for (let i = 0; i < index; i++) {
-        if (current[i] === true || isExistTrue === true) {
-          current[i] = true;
-          isExistTrue = true;
-        }
-      }
-      if (isExistTrue === false) {
-        for (let i = current.length - 1; i > index; i--) {
-          if (current[i] === true || isExistTrue === true) {
-            current[i] = true;
-            isExistTrue = true;
-          }
-        }
-      }
+      current.indexOf(true) < index
+        ? current.fill(true, current.indexOf(true), index)
+        : current.lastIndexOf(true) > index
+        ? current.fill(true, index, current.lastIndexOf(true))
+        : tampon=null;
     } else {
-      let isExistTrue = false;
-      for (let i = 0; i < index; i++) {
-        if (current[i] === true) {
-          isExistTrue = true;
-        }
-      }
-      if (isExistTrue === true) {
-        for (let i = index; i < current.length; i++) {
-          current[i] = false;
-        }
-      }
+      current.indexOf(true) < index && current.indexOf(true) > -1
+        ? current.fill(false, index)
+        : tampon=null;      
     }
 
-    // Filtered    
+    // Filtered
     let filterMin = this.state.starCurrent.indexOf(true);
-    let filterMax = this.state.starCurrent.lastIndexOf(true);    
+    let filterMax = this.state.starCurrent.lastIndexOf(true);
     // Check Restaurants displayed
     let restaurantsDisplayed = this.state.restaurantsDisplayed;
     let restaurantsFiltered = [];
-    // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0    
+    // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0
     if (filterMin === -1) {
       restaurantsFiltered = this.state.restaurantsDisplayed;
     } else {
@@ -113,10 +95,8 @@ class App extends Component {
         numberRatings !== 0
           ? (averageRating = averageRating / numberRatings)
           : (averageRating = 0);
-        // Fix Restaurants with 0 ratings
-
-        if ((averageRating >= filterMin + 1)  && (averageRating <= filterMax + 1)) {
-          restaurantsFiltered = [...restaurantsFiltered,restaurant];
+        if (averageRating >= filterMin + 1 && averageRating <= filterMax + 1) {
+          restaurantsFiltered = [...restaurantsFiltered, restaurant];
         }
       });
     }
@@ -142,40 +122,39 @@ class App extends Component {
   };
 
   _addRestaurant = (lat, lng) => {
-    let that=this;
-    let google = this.state.google;
-    let geocoder = new google.maps.Geocoder;
-    let latLng={lat:lat,lng:lng};
-    geocoder.geocode({'location': latLng}, function(results, status) {      
-      if (status === 'OK') {
-        if (results[0]) {          
-          that.setState({
+    const google = this.state.google;
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+      if (status === "OK") {
+        if (results[0]) {
+          this.setState({
             displayAddRestaurant: true,
             newAddress: results[0].formatted_address,
-            newName: '',      
+            newName: "",
             newLat: results[0].geometry.location.lat(),
             newLng: results[0].geometry.location.lng()
           });
         } else {
-          window.alert('Pas de résultat connu');
-          that.setState({
-            displayAddRestaurant: true, 
-            newName: '',
-            newAddress: '',     
+          window.alert("Pas de résultat connu");
+          this.setState({
+            displayAddRestaurant: true,
+            newName: "",
+            newAddress: "",
             newLat: lat,
             newLng: lng
-          });          
+          });
         }
       } else {
-        window.alert('Echec du geocoder : ' + status);
-        that.setState({
+        window.alert("Echec du geocoder : " + status);
+        this.setState({
           displayAddRestaurant: true,
-          newName: '', 
-          newAddress: '',     
+          newName: "",
+          newAddress: "",
           newLat: lat,
           newLng: lng
         });
-      };      
+      }
     });
   };
 
@@ -202,33 +181,32 @@ class App extends Component {
             restaurant
           ],
           restaurantsFiltered: [...this.state.restaurantsDisplayed, restaurant],
-          starCurrent: [true, true, true, true, true]
+          starCurrent: [false, false, false, false, false]
         })
       : console.log("restaurant existant");
   };
 
-  _addRestaurantsAround = (restaurant) => {
+  _addRestaurantsAround = restaurant => {
     let restaurantExist = false;
     this.state.restaurants.forEach(function(item) {
-      if( item.lat === restaurant.lat && item.long === restaurant.long ){
+      if (item.lat === restaurant.lat && item.long === restaurant.long) {
         restaurantExist = true;
       }
     });
     if (restaurantExist === false) {
       this.setState({
-      restaurants: [...this.state.restaurants,restaurant]
-      })
-    }   
-    
-  }
+        restaurants: [...this.state.restaurants, restaurant]
+      });
+    }
+  };
 
-  _changeName = (value) => {
-    this.setState({newName:value})
-  }
+  _changeName = value => {
+    this.setState({ newName: value });
+  };
 
-  _changeAddress = (value) => {
-    this.setState({newAddress:value})
-  }
+  _changeAddress = value => {
+    this.setState({ newAddress: value });
+  };
 
   componentDidMount() {
     this.setState({
@@ -250,7 +228,7 @@ class App extends Component {
         <header>
           <h1>Greedy POV</h1>
         </header>
-        <main>          
+        <main>
           {this.state.loaded && (
             <MapGoogle
               google={this.state.google}

@@ -38,7 +38,7 @@ class MapGoogle extends Component {
   }
 
   addMarker(restaurant) {
-    let google = this.props.google;
+    const google = this.props.google;
     let map = this.state.map;
     let location = { lat: restaurant.lat, lng: restaurant.long };
     
@@ -75,9 +75,7 @@ class MapGoogle extends Component {
         type: ['restaurant']
       };    
       this.state.service.nearbySearch(request, this.searchAround);
-    }   
-    
-    
+    }  
     
     // On parcourt la liste des restaurants
     this.props.restaurants.forEach(function(restaurant) {
@@ -87,33 +85,29 @@ class MapGoogle extends Component {
         // On ajoute le restaurant dans la liste des restaurants à afficher
         restaurantsDisplayed = [...restaurantsDisplayed,restaurant];
       }
-    });  
-    
-
+    }); 
 
     this.props.handleChange(restaurantsDisplayed);
+
     this.props.restaurantsFiltered.forEach(function(restaurant) {
       that.addMarker(restaurant);
     });
   };  
 
   searchAround = (results, status) => {
-    let google = this.props.google;
+    const google = this.props.google;
     
     let restaurantsAround = [];    
 
-    if (status === google.maps.places.PlacesServiceStatus.OK) {      
-      
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
       // We go through the list
-      for (let i = 0; i < results.length; i++) {        
-        
+      for (let i = 0; i < results.length; i++) {
         restaurantsAround[i] = results[i];
-        
       }
     }
     
-    let service = this.state.service;
-    let addRestaurantsAround = this.props.addRestaurantsAround;
+    const service = this.state.service;
+    const addRestaurantsAround = this.props.addRestaurantsAround;
     
     for (let i=0; i<restaurantsAround.length ; i++) {
       // Create Object Restaurant
@@ -132,7 +126,6 @@ class MapGoogle extends Component {
       
       service.getDetails(request, function(place, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-
           // add condition on reviews
           let reviews = (place.reviews!==null||!place.reviews)?place.reviews:[];         
           if (reviews !== undefined) {
@@ -143,18 +136,16 @@ class MapGoogle extends Component {
 
             restaurant.ratings.push(view);
           });
-          }
-                      
+          }                      
           addRestaurantsAround(restaurant);                     
         };
       });
     }
     
-    
   }
 
   init() {
-    let google = this.props.google;
+    const google = this.props.google;
     let map = new google.maps.Map(document.getElementById("map"), {
       zoom: 14,
       center: { lat: 48.8737815, lng: 2.3501649 },
@@ -218,7 +209,7 @@ class MapGoogle extends Component {
   componentDidUpdate(prevProps) {
     if (this.state.map && this.state.eventBounds === false) {
       // On écoute si la map bouge pour vérifier
-      let google = this.props.google;
+      const google = this.props.google;
       google.maps.event.addListener(
         this.state.map,
         "bounds_changed",

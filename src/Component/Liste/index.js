@@ -1,19 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import Restaurant from "../Restaurant";
 
-class Liste extends Component {
-  
-  addRating = (comment, stars, lat, lng) => {      
-    // On envoie en paramètre le commentaire, la note et les coordonnées
-    this.props.addRating(comment,stars,lat,lng);
-  }
-  
-  render() {
-    return (
-      <div id="listeRestaurants">
-        <h2>{this.props.nameList}</h2>
+const Liste = (props) => (
+<div id="listeRestaurants">
+        <h2>{props.nameList}</h2>
 
-        {this.props.restaurants.map(restaurant => (          
+        {props.restaurants.map(restaurant => (          
           <Restaurant
             name={restaurant.restaurantName}
             address={restaurant.address}
@@ -21,12 +13,10 @@ class Liste extends Component {
             ratings={restaurant.ratings}
             lat={restaurant.lat}
             lng={restaurant.long}
-            addRating={this.addRating}
+            addRating={props.addRating}
           />
         ))}
       </div>
-    );
-  }
-}
+);
 
 export default Liste;

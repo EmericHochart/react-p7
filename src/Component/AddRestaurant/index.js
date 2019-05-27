@@ -12,8 +12,9 @@ class AddRestaurant extends Component {
   submitNewRestaurant = (event) => {
     //  On annule l'action implicite d'envoi au serveur du formulaire concerné.
     event.preventDefault();
+    const {name,address,lat,lng} = this.props;
     // On envoie en paramètre les coordonnées et les valeurs du formulaire    
-    this.props.addNewRestaurant(this.props.name,this.props.address,this.props.lat,this.props.lng);
+    this.props.addNewRestaurant(name,address,lat,lng);
   }
 
   handleChangeName = (event) => {    
