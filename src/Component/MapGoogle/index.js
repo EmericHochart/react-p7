@@ -9,7 +9,10 @@ class MapGoogle extends Component {
     handleChange: PropTypes.func.isRequired,
     google: PropTypes.object,
     addRestaurant: PropTypes.func.isRequired,
-    addRestaurantsAround: PropTypes.func.isRequired
+    addRestaurantsAround: PropTypes.func.isRequired,
+    addMarker: PropTypes.func.isRequired,
+    clearMarkers: PropTypes.func.isRequired,
+    markers: PropTypes.array.isRequired
   };
 
   constructor(props) {
@@ -18,11 +21,11 @@ class MapGoogle extends Component {
       map: null,
       service: null,
       loaded: false,
-      eventBounds: false      
+      eventBounds: false
     };
   }
 
-  handleBoundsChanged = event => {    
+  handleBoundsChanged = event => {
     let map = this.state.map;
     let limite = map.getBounds();
     let restaurantsDisplayed = [];
@@ -30,7 +33,7 @@ class MapGoogle extends Component {
     this.props.clearMarkers();
 
     // Si le service est chargé, on appelle la méthode nearbySearch
-    if (this.state.service && this.props.google) {    
+    if (this.state.service && this.props.google) {
       let center = map.getCenter();
       let lat = center.lat();
       let lng = center.lng();
@@ -38,33 +41,31 @@ class MapGoogle extends Component {
       // Request : find restaurant around location
       let request = {
         location: location,
-        radius: '2000',
-        type: ['restaurant']
-      };    
+        radius: "800",
+        type: ["restaurant"]
+      };
       this.state.service.nearbySearch(request, this.searchAround);
-    }  
-    
+    }
+
     // On parcourt la liste des restaurants
     this.props.restaurants.forEach(function(restaurant) {
       let coordRestaurant = { lat: restaurant.lat, lng: restaurant.long };
       // Affiche le restaurant dans la liste si celui-ci est sur la carte
       if (limite.contains(coordRestaurant)) {
         // On ajoute le restaurant dans la liste des restaurants à afficher
-        restaurantsDisplayed = [...restaurantsDisplayed,restaurant];
+        restaurantsDisplayed = [...restaurantsDisplayed, restaurant];
       }
-    }); 
+    });
 
     this.props.handleChange(restaurantsDisplayed);
 
-    this.props.restaurantsFiltered.forEach((restaurant) => {
-      this.props.addMarker(restaurant,map);
-    });
-  };  
+    this.props.addMarker(this.props.restaurantsFiltered, map);
+  };
 
   searchAround = (results, status) => {
     const google = this.props.google;
-    
-    let restaurantsAround = [];    
+
+    let restaurantsAround = [];
 
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       // We go through the list
@@ -72,44 +73,44 @@ class MapGoogle extends Component {
         restaurantsAround[i] = results[i];
       }
     }
-    
+
     const service = this.state.service;
     const addRestaurantsAround = this.props.addRestaurantsAround;
-    
-    for (let i=0; i<restaurantsAround.length ; i++) {
+
+    for (let i = 0; i < restaurantsAround.length; i++) {
       // Create Object Restaurant
       let restaurant = {};
       restaurant.restaurantName = restaurantsAround[i].name;
       restaurant.address = restaurantsAround[i].vicinity;
       restaurant.lat = restaurantsAround[i].geometry.location.lat();
-      restaurant.long = restaurantsAround[i].geometry.location.lng();  
+      restaurant.long = restaurantsAround[i].geometry.location.lng();
       restaurant.ratings = [];
 
-      // Request : Recovery of rewiews and ratings      
+      // Request : Recovery of rewiews and ratings
       let request = {
         placeId: restaurantsAround[i].place_id,
-        fields: ['reviews']
-      };      
-      
+        fields: ["reviews"]
+      };
+
       service.getDetails(request, function(place, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           // add condition on reviews
-          let reviews = (place.reviews!==null||!place.reviews)?place.reviews:[];         
+          let reviews =
+            place.reviews !== null || !place.reviews ? place.reviews : [];
           if (reviews !== undefined) {
-            reviews.forEach(function(review){
-            let view = {};
-            view.stars = review.rating;
-            view.comment = review.text;
+            reviews.forEach(function(review) {
+              let view = {};
+              view.stars = review.rating;
+              view.comment = review.text;
 
-            restaurant.ratings.push(view);
-          });
-          }                      
-          addRestaurantsAround(restaurant);                     
-        };
+              restaurant.ratings.push(view);
+            });
+          }
+          addRestaurantsAround(restaurant);
+        }
       });
     }
-    
-  }
+  };
 
   init() {
     const google = this.props.google;
@@ -157,13 +158,13 @@ class MapGoogle extends Component {
     map.addListener("click", e => {
       let lat = e.latLng.lat();
       let lng = e.latLng.lng();
-      this.props.addRestaurant(lat, lng);
+      this.props.addRestaurant(lat, lng, this.state.map);
     });
 
     this.setState({
       map: map,
       loaded: true,
-      service : new google.maps.places.PlacesService(map)
+      service: new google.maps.places.PlacesService(map)
     });
   }
 
@@ -183,9 +184,9 @@ class MapGoogle extends Component {
         this.handleBoundsChanged
       );
       this.setState({
-        eventBounds: true,
+        eventBounds: true
       });
-    }    
+    }
   }
 
   // Manage Location Error

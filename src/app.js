@@ -4,6 +4,7 @@ import MapGoogle from "./Component/MapGoogle";
 import Liste from "./Component/Liste";
 import Rating from "./Component/Rating";
 import AddRestaurant from "./Component/AddRestaurant";
+import geoMarker from "./assets/restaurant.png";
 
 var data = require("./data/restaurant.json");
 
@@ -20,6 +21,7 @@ class App extends Component {
       google: null,
       loaded: false,
       displayAddRestaurant: false,
+      map: null,
       newName: null,
       newAddress: null,
       newLat: null,
@@ -33,6 +35,9 @@ class App extends Component {
     let filterMin = this.state.starCurrent.indexOf(true);
     let filterMax = this.state.starCurrent.lastIndexOf(true);
     let restaurantsFiltered = [];
+
+    this._clearMarkers();
+
     if (filterMin === -1) {
       this.setState({
         restaurantsDisplayed: restaurants,
@@ -82,11 +87,11 @@ class App extends Component {
     let filterMin = this.state.starCurrent.indexOf(true);
     let filterMax = this.state.starCurrent.lastIndexOf(true);
     // Check Restaurants displayed
-    let restaurantsDisplayed = this.state.restaurantsDisplayed;
+    let restaurantsDisplayed = [...this.state.restaurantsDisplayed];
     let restaurantsFiltered = [];
     // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0
     if (filterMin === -1) {
-      restaurantsFiltered = this.state.restaurantsDisplayed;
+      restaurantsFiltered = restaurantsDisplayed;
     } else {
       restaurantsDisplayed.map(restaurant => {
         // Calcul de la moyenne des commentaires
@@ -102,9 +107,7 @@ class App extends Component {
       });
     }
     this._clearMarkers();
-    /*restaurantsFiltered.forEach((restaurant) => {
-      this._addMarker(restaurant,map);
-    });*/
+    this._addMarker(restaurantsFiltered, this.state.map);
     this.setState({
       starCurrent: current,
       restaurantsFiltered: restaurantsFiltered
@@ -126,7 +129,7 @@ class App extends Component {
     });
   };
 
-  _addRestaurant = (lat, lng) => {
+  _addRestaurant = (lat, lng, map) => {
     const google = this.state.google;
     const geocoder = new google.maps.Geocoder();
 
@@ -135,6 +138,7 @@ class App extends Component {
         if (results[0]) {
           this.setState({
             displayAddRestaurant: true,
+            map: map,
             newAddress: results[0].formatted_address,
             newName: "",
             newLat: results[0].geometry.location.lat(),
@@ -144,6 +148,7 @@ class App extends Component {
           window.alert("Pas de résultat connu");
           this.setState({
             displayAddRestaurant: true,
+            map: map,
             newName: "",
             newAddress: "",
             newLat: lat,
@@ -154,6 +159,7 @@ class App extends Component {
         window.alert("Echec du geocoder : " + status);
         this.setState({
           displayAddRestaurant: true,
+          map: map,
           newName: "",
           newAddress: "",
           newLat: lat,
@@ -172,6 +178,7 @@ class App extends Component {
       long: lng,
       ratings: []
     };
+
     // Si le restaurant n'existe pas, on l'ajoute sinon on indique qu'il existe déjà
     this.state.restaurants.findIndex(item => {
       if (item.restaurantName === name && item.address === address) {
@@ -189,7 +196,8 @@ class App extends Component {
           starCurrent: [false, false, false, false, false]
         })
       : this.setState({
-        displayAddRestaurant: false,});
+          displayAddRestaurant: false
+        });
   };
 
   _addRestaurantsAround = restaurant => {
@@ -220,19 +228,27 @@ class App extends Component {
     });
   };
 
-  _addMarker = (restaurant,map) => {
-    const google = this.state.google;    
-    let location = { lat: restaurant.lat, lng: restaurant.long };
-    let marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      animation: google.maps.Animation.DROP
-    });    
-    this.setState({
-      markers: [...this.state.markers,marker]
+  _addMarker = (restaurants, map) => {
+    const google = this.state.google;
+    let markers = [];
+    restaurants.map(restaurant => {
+      let location = { lat: restaurant.lat, lng: restaurant.long };
+      let marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: {
+          url: geoMarker
+        }
+      });
+      markers = [...markers, marker];
     });
-  }
-  
+    this.setState({
+      markers: markers,
+      map: map
+    });
+  };
+
   _clearMarkers = () => {
     let markers = this.state.markers;
     for (let i = 0; i < markers.length; i++) {
@@ -241,8 +257,8 @@ class App extends Component {
     this.setState({
       markers: []
     });
-  }
-  
+  };
+
   componentDidMount() {
     this.setState({
       google: window.google
@@ -267,6 +283,7 @@ class App extends Component {
           {this.state.loaded && (
             <MapGoogle
               google={this.state.google}
+              map={this.state.map}
               restaurants={this.state.restaurants}
               restaurantsDisplayed={this.state.restaurantsDisplayed}
               restaurantsFiltered={this.state.restaurantsFiltered}
