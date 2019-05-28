@@ -8,7 +8,8 @@ class MapGoogle extends Component {
     restaurantsFiltered: PropTypes.array.isRequired,
     handleChange: PropTypes.func.isRequired,
     google: PropTypes.object,
-    addRestaurant: PropTypes.func.isRequired
+    addRestaurant: PropTypes.func.isRequired,
+    addRestaurantsAround: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -17,50 +18,16 @@ class MapGoogle extends Component {
       map: null,
       service: null,
       loaded: false,
-      eventBounds: false,
-      markers: [],
+      eventBounds: false      
     };
-  }
-
-  // Sets the map on all markers in the array.
-  setMapOnAll(map) {
-    let markers = this.state.markers;
-    for (let i = 0; i < markers.length; i++) {
-      markers[i].setMap(map);
-    }
-  }
-  // Clear Markers
-  clearMarkers() {
-    this.setMapOnAll(null);
-    this.setState({
-      markers: []
-    });
-  }
-
-  addMarker(restaurant) {
-    const google = this.props.google;
-    let map = this.state.map;
-    let location = { lat: restaurant.lat, lng: restaurant.long };
-    
-    let marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      animation: google.maps.Animation.DROP
-    });    
-    this.setState({
-      markers: [...this.state.markers,marker]
-    });
-    //map.panTo(location);
-    // A placer ailleurs !!!!!! sinon minor bug
   }
 
   handleBoundsChanged = event => {    
     let map = this.state.map;
-    let limite = map.getBounds();    
-    let that = this;
+    let limite = map.getBounds();
     let restaurantsDisplayed = [];
     // Remove all Markers
-    this.clearMarkers();
+    this.props.clearMarkers();
 
     // Si le service est chargé, on appelle la méthode nearbySearch
     if (this.state.service && this.props.google) {    
@@ -89,8 +56,8 @@ class MapGoogle extends Component {
 
     this.props.handleChange(restaurantsDisplayed);
 
-    this.props.restaurantsFiltered.forEach(function(restaurant) {
-      that.addMarker(restaurant);
+    this.props.restaurantsFiltered.forEach((restaurant) => {
+      this.props.addMarker(restaurant,map);
     });
   };  
 
@@ -218,7 +185,7 @@ class MapGoogle extends Component {
       this.setState({
         eventBounds: true,
       });
-    }
+    }    
   }
 
   // Manage Location Error

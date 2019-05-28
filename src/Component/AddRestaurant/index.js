@@ -1,6 +1,17 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class AddRestaurant extends Component {
+  static propTypes = {
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+    address: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    changeName: PropTypes.func.isRequired,
+    changeAddress: PropTypes.func.isRequired,
+    addNewRestaurant: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +36,11 @@ class AddRestaurant extends Component {
     this.props.changeAddress(event.target.value);
   }
 
+  handleClick = (event) => {
+    event.stopPropagation();
+    this.props.cancelAdd();
+  }
+
   render() {
     return (
       <div id="addRestaurant">
@@ -39,8 +55,9 @@ class AddRestaurant extends Component {
             <label htmlFor="form2">Adresse du Restaurant : </label>
             <input type="text" id="addAddressRestaurant" name="form2" value={this.props.address} onChange={this.handleChangeAddress} required></input> 
           </p>
-          <input id="submitRestaurant" type="submit" value="Ajouter"></input>         
+          <input id="submitRestaurant" type="submit" value="Ajouter"></input>     
         </form>
+        <button onClick={this.handleClick}>Annuler</button> 
       </div>
     );
   }

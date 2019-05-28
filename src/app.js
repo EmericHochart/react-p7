@@ -23,7 +23,8 @@ class App extends Component {
       newName: null,
       newAddress: null,
       newLat: null,
-      newLng: null
+      newLng: null,
+      markers: []
     };
   }
 
@@ -70,11 +71,11 @@ class App extends Component {
         ? current.fill(true, current.indexOf(true), index)
         : current.lastIndexOf(true) > index
         ? current.fill(true, index, current.lastIndexOf(true))
-        : tampon=null;
+        : (tampon = null);
     } else {
       current.indexOf(true) < index && current.indexOf(true) > -1
         ? current.fill(false, index)
-        : tampon=null;      
+        : (tampon = null);
     }
 
     // Filtered
@@ -100,6 +101,10 @@ class App extends Component {
         }
       });
     }
+    this._clearMarkers();
+    /*restaurantsFiltered.forEach((restaurant) => {
+      this._addMarker(restaurant,map);
+    });*/
     this.setState({
       starCurrent: current,
       restaurantsFiltered: restaurantsFiltered
@@ -183,7 +188,8 @@ class App extends Component {
           restaurantsFiltered: [...this.state.restaurantsDisplayed, restaurant],
           starCurrent: [false, false, false, false, false]
         })
-      : console.log("restaurant existant");
+      : this.setState({
+        displayAddRestaurant: false,});
   };
 
   _addRestaurantsAround = restaurant => {
@@ -208,6 +214,35 @@ class App extends Component {
     this.setState({ newAddress: value });
   };
 
+  _cancelAdd = () => {
+    this.setState({
+      displayAddRestaurant: false
+    });
+  };
+
+  _addMarker = (restaurant,map) => {
+    const google = this.state.google;    
+    let location = { lat: restaurant.lat, lng: restaurant.long };
+    let marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      animation: google.maps.Animation.DROP
+    });    
+    this.setState({
+      markers: [...this.state.markers,marker]
+    });
+  }
+  
+  _clearMarkers = () => {
+    let markers = this.state.markers;
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    this.setState({
+      markers: []
+    });
+  }
+  
   componentDidMount() {
     this.setState({
       google: window.google
@@ -238,6 +273,9 @@ class App extends Component {
               handleChange={this._handleChange}
               addRestaurant={this._addRestaurant}
               addRestaurantsAround={this._addRestaurantsAround}
+              addMarker={this._addMarker}
+              clearMarkers={this._clearMarkers}
+              markers={this.state.markers}
             />
           )}
 
@@ -257,6 +295,7 @@ class App extends Component {
               changeName={this._changeName}
               changeAddress={this._changeAddress}
               addNewRestaurant={this._addNewRestaurant}
+              cancelAdd={this._cancelAdd}
             />
           ) : (
             <Liste
