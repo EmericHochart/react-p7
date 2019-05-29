@@ -1,31 +1,748 @@
-[{
-            "restaurantName": "Bronco",
-            "address": "39 Rue des Petites Écuries, 75010 Paris",
-            "lat": 48.8737815,
-            "long": 2.3501649,
-            "ratings": [{
-                    "stars": 4,
-                    "comment": "Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande."
-                },
-                {
-                    "stars": 5,
-                    "comment": "Tout simplement mon restaurant préféré !"
-                }
-            ]
-        },
-        {
-            "restaurantName": "Babalou",
-            "address": "4 Rue Lamarck, 75018 Paris",
-            "lat": 48.8865035,
-            "long": 2.3442197,
-            "ratings": [{
-                    "stars": 5,
-                    "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
-                },
-                {
-                    "stars": 3,
-                    "comment": "J'ai trouvé ça correct, sans plus"
-                }
-            ]
-        }
-    ]
+[
+    {
+        "restaurantName": "Bronco",
+        "address": "39 Rue des Petites Écuries, 75010 Paris",
+        "lat": 48.8737815,
+        "long": 2.3501649,
+        "ratings": [
+            {
+                "stars": 4,
+                "comment": "Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande."
+            },
+            {
+                "stars": 5,
+                "comment": "Tout simplement mon restaurant préféré !"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Babalou",
+        "address": "4 Rue Lamarck, 75018 Paris",
+        "lat": 48.8865035,
+        "long": 2.3442197,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
+            },
+            {
+                "stars": 3,
+                "comment": "J'ai trouvé ça correct, sans plus"
+            }
+        ]
+    },
+    {
+        "restaurantName": "La Guinguette",
+        "address": "109 Rue de Wattrelos, Leers",
+        "lat": 50.6890886,
+        "long": 3.236110300000064,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Un plaisir de revenir à la guinguette à leers. Équipe toujours aussi sympathique et accueillante et au petit soin pour ses habitués et bienveillant pour les nouveaux. Une carte variée et un excellent rapport qualité prix. Des travaux sont en cours mais ne changent rien à l'accessibilité du restaurant. Le tout face au canal qui vous propose un parcours balisé pour profiter des beaux jours."
+            },
+            {
+                "stars": 5,
+                "comment": "Un très bon accueil, une équipe agréable et très sympathique. Le cadre est très sympa. La cuisine est bonne. Une pièce de bœuf avec frite et sauce au poivre. Une adresse à retenir. 👍👍👍👍"
+            },
+            {
+                "stars": 5,
+                "comment": "Un bon moment dans un endroit agréable et chaleureux.  Le personnel est charmant et les plats copieux et de bonne qualité.   Nous reviendrons"
+            },
+            {
+                "stars": 3,
+                "comment": "Bon resto, je n'y allais que le midi avec des collègues, le service est toujours long, mais long... 1h30 avant d'être servi. La salle est bruyante, mais les repas sont bons, mais ne valent pas toute cette attente. Malheureusement j'ai pu le profiter des desserts qu'une fois, je suis arrivée vers 15h au boulot."
+            },
+            {
+                "stars": 5,
+                "comment": "Lieu très agréable et facile à trouver. Il y a un parking à l'arrière du restaurant. Les propriétaires sont très accueillants et on y mange très bien pour un prix correcte. Je le recommande à tout le monde et j'y retournerai c'est sûr."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Le Grain D'orge",
+        "address": "1 Rue de Wattrelos, Leers",
+        "lat": 50.682119,
+        "long": 3.244454000000019,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Endroit charmant et la  cuisine est toujours aussi bonne.\nCôte à  l os très tendre et très bien garnie.\nRapport qualité prix ok.\nA découvrir."
+            },
+            {
+                "stars": 5,
+                "comment": "On se régale. On y trouve pas de mal de choix de repas réalisés avec des produits frais. Patron génial et surtout très accueillant 😊"
+            },
+            {
+                "stars": 5,
+                "comment": "Bonne cuisine française variée. On y mange bien. Personnel très agréable. On en fait sans hésiter sa \"cantine\""
+            },
+            {
+                "stars": 5,
+                "comment": "Comme toujours parfait.  Bonne cuisine. Bon service. Rapidité, professionnalisme et convivialité."
+            },
+            {
+                "stars": 3,
+                "comment": "Un personnel très accueillant mais le déjeuner n'était pas ce à quoi nous nous attendions, un peu chère ..."
+            }
+        ]
+    },
+    {
+        "restaurantName": "La Terrasse",
+        "address": "36 Terrasse Saint-Pierre, Douai",
+        "lat": 50.3704012,
+        "long": 3.0825062999999773,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Nous avons passé un très bon moment à la Terrasse. Le service était discret et attentionné, de bon conseil pour l'accord des vins. Nous nous sommes régalés, tout était parfait,\n des amuses bouches aux mignardises. Du vrai \"fait maison\" de A à Z et ça se ressent dans l'assiette, le goût est au rendez-vous.\nPetit bémol, la proximité avec les autres tables peut être gênante.\nNous reviendrons évidement avec plaisir dans ce restaurant.\nBravo et merci de faire vivre la gastronomie française !!"
+            },
+            {
+                "stars": 3,
+                "comment": "Repas agréable en cette occasion de fête des mères ;  un bémol : nous avons dû réclamer les vins non servis avec nos plats. ..\nUne déception pour le bar également."
+            },
+            {
+                "stars": 1,
+                "comment": "Language trop familier de la secrétaireDéni total de la responsable car nous prenions que le menu intermédiaire à 43,50Et une odeur un peu trop présente de l'humiditéUn conseil si voulez une bonne adresse n'allez pas là !!!!!!\n\nJe réponds au propriétaire, oui j'ai bien été  à cette établissement, je suis dsl que vous ne vous en rappeliez pas \nPeut être ce n'est pas une secrétaire, c'est peut être une hôtesse d'accueil mais je garde le commentaire que j'ai mis\nCordialement"
+            },
+            {
+                "stars": 5,
+                "comment": "A la hauteur de mes attentes , très beau lieu, bon service , excellente table , à refaire !!!"
+            },
+            {
+                "stars": 4,
+                "comment": "Tout bien, sauf escalier raide et pas d ascenseur. Sinon accueil sympa et équipements des chambres et sanitaires d excellente qualité."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Les Terrasses Des Pyramides",
+        "address": "Rue du Riez d'Elbecq, Lys-lez-Lannoy",
+        "lat": 50.670852,
+        "long": 3.2318849000000682,
+        "ratings": []
+    },
+    {
+        "restaurantName": "LA PATATINE",
+        "address": "3 Rue Jean Jaurès, Leers",
+        "lat": 50.6802771,
+        "long": 3.247605300000032,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Frite de 2 pour 4 ....GÉNÉREUX et bon en plus merci"
+            },
+            {
+                "stars": 1,
+                "comment": "Incompetent, oublie la moitié de la commande, les serveurs sont tres froid, une attente minimale de une heure.\nJe ne recommande pas dutout"
+            },
+            {
+                "stars": 1,
+                "comment": "Je ne trouve pas normal de ne pas respecter l'ordre d'arrivée pour le service.\nCette désorganisation m'a valu 3/4 heure d'attente pour un sandwich et une frite."
+            },
+            {
+                "stars": 5,
+                "comment": "Excellente friterie sur Leers, les frites sont croustillantes et les mexicanos délicieux, etant de Leers nous y retournerons sûrement a notre prochaine envie de friterie."
+            },
+            {
+                "stars": 5,
+                "comment": "Accueil très chaleureux et bonne cuisine"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Alina",
+        "address": "42 Avenue Jean Jaurès, Paris",
+        "lat": 48.8834627,
+        "long": 2.373725899999954,
+        "ratings": []
+    },
+    {
+        "restaurantName": "La Bicyclette",
+        "address": "5 Rue de Chaumont, Paris",
+        "lat": 48.8813385,
+        "long": 2.3721517000000176,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "La meilleur cantine du quartier ! Nous y revenons toutes les semaines avec grand plaisir que ce soit pour les produits de qualité, les vins naturels et la bonne humeur du patron !"
+            },
+            {
+                "stars": 5,
+                "comment": "Super service, très bel endroit, excellent vin, et plats frais et originaux. Sans compter la bonne ambiance qui règne grâce au patron. J’y retournerai"
+            },
+            {
+                "stars": 5,
+                "comment": "Excellent restaurant de quartier. Accueil toujours chaleureux. Un régal d'y déjeuner régulièrement."
+            },
+            {
+                "stars": 5,
+                "comment": "Lieu chaleureux et animé, cuisine originale et excellente ! Super restaurant !"
+            },
+            {
+                "stars": 5,
+                "comment": "Un endroit hors du temps pour déjeuner des produits frais pour petit budget. A essayer d’urgence !"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Bistrot Lumière",
+        "address": "96 Avenue Jean Jaurès, Paris",
+        "lat": 48.8850861,
+        "long": 2.379666199999974,
+        "ratings": [
+            {
+                "stars": 4,
+                "comment": "Un petit bistrot sympathique où il possible de partir avec une toile de maître. La cuisine est soigné avec goût, si vous ne finissez pas votre plat, il vous est possible de repartir avec. Une terrasse chauffée est disponible pour les fumeurs et un grand écran est déplié pour les soirées de grande rencontre sportive.  Le patron sait vous accueillir et vous quittez avec une humeur joviale."
+            },
+            {
+                "stars": 5,
+                "comment": "Ambiance très sympa et décontracté, repas très bien présenté et bon et prix raisonnable"
+            },
+            {
+                "stars": 4,
+                "comment": "Bel établissement, juste à la sortie du métro Laumière. Accueil professionnel et fort sympathique. Prix parisiens. Grande terrasse couverte."
+            },
+            {
+                "stars": 5,
+                "comment": "Service presque parfait  😎✌"
+            },
+            {
+                "stars": 3,
+                "comment": "Toujours bien reçu"
+            }
+        ]
+    },
+    {
+        "restaurantName": "La Bulle",
+        "address": "48 Rue Louis Blanc, Paris",
+        "lat": 48.88212739999999,
+        "long": 2.3636086000000205,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Menu du jour impeccable, un velouté de petit pois avec un pomelos corse et de la faisselle en entrée, suivi de carottes rôties avec des cerises et aiguillettes de canard. Formule du jour entrée + plat à 18€50. Très bon service et très bon accueil."
+            },
+            {
+                "stars": 5,
+                "comment": "Cuisine raffinée et saine. Je lis quelques commentaires sur les quantités, personnellement c est agréable et suffisant pour un déjeuner et en plus on a plaisir à profiter d'un dessert. En plus une jolie déco intérieure."
+            },
+            {
+                "stars": 5,
+                "comment": "Un vrai coup de cœur pour La Bulle.\nUn menu extraordinaire, ou se mêlent produits de saisons et associations surprenantes. \nJe recommande vivement !"
+            },
+            {
+                "stars": 5,
+                "comment": "Nous avons été dîner hier soir dans ce petit restaurant que nous voulions tester depuis des mois. Sans surprise : un cadre cosy, un service souriant et chaleureux, des assiettes parfaites (ni trop ni trop peu)... Un rapport qualité / prix excellent. Nous reviendrons "
+            },
+            {
+                "stars": 5,
+                "comment": "Exceptionnel ! J'y étais venu un nouvel an avec un menu en 6 services : j'ai été surpris 6 fois et c'est bien la première fois en tant que bon français râleur !"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Pizzeria Bella Italia",
+        "address": "40 Rue Louis Blanc, Paris",
+        "lat": 48.88162889999999,
+        "long": 2.364460300000019,
+        "ratings": [
+            {
+                "stars": 1,
+                "comment": "J’ai vu un cafard en rentrant dans la pizzeria, service client très froid. Je ne recommande pas ."
+            },
+            {
+                "stars": 2,
+                "comment": "Si les pizzas semblent bonne, le lieu sympatique, l'acceuil est froid, inexistant pour les gays, bi etc. \nAucune ouverture d'esprit, ni de fibre commercante dans cette boutique.\nLorsque j'ai assisté ''au manège'' des employés (patrons), pour éviter une vente lors du passage d'amis ... j'ai rebroussé chemin ! \nVisiblement, il y a 'délit de faciès' et ce n'est pas excusable."
+            },
+            {
+                "stars": 2,
+                "comment": "Irregulier c'est dommage"
+            },
+            {
+                "stars": 5,
+                "comment": "Derrière cette petite devanture sans prétention, vous trouverez la meilleure calzone de Paris à un prix défiant toute concurrence"
+            },
+            {
+                "stars": 3,
+                "comment": "Pizza très bonnes mais c'est dommage la livraison est en retard je reçois ma commande avec 30 min de retard"
+            }
+        ]
+    },
+    {
+        "restaurantName": "La Criée La Villette",
+        "address": "68 Quai de la Seine, Paris",
+        "lat": 48.8882033,
+        "long": 2.37847940000006,
+        "ratings": [
+            {
+                "stars": 1,
+                "comment": "Nous avons été servies après 1h30 seulement 3 personnes sur 5 les deux autres ayant dû attendre 3/4 d'heure.... nous n'avons donc pas déjeuner ensemble....... panique dans ce restaurant cris et invectives des clients insatisfaits. Nous sommes partis sans dessert à 15h30 de peur d'attendre encore 1h. Cuisine sans saveur frites et gratins froid nous n'y retournerons pas"
+            },
+            {
+                "stars": 2,
+                "comment": "Nous sommes allés déjeuner à la criée.  Et nous sommes très déçus du service. 3 personnes sont servies au bout d'une heure et 2 attendent 20 minutes de plus avant de pouvoir manger. De plus les frites et les gratins étaient froids.meme si le poisson est bon, il faut amener de quoi se divertir pendant l'attente interminable. La table à côté de nous est même partie avant que le désert soit servi."
+            },
+            {
+                "stars": 5,
+                "comment": "Des produits frais avec un très bon service !\nJ'ai commandé des fruits de mer à emporter pour 6 personnes, je n'ai donc pas consommé sur place, je peux néanmoins décrire une salle et une terrasse très agréable idéalement situées au bord du canal de l'Ourcq.\nMa commande, dans le cadre d'une vente à emporter, s'est très bien passée. Tous les interlocuteurs avec qui j'ai échangé ont été serviables et très efficaces : j'ai été bien conseillé et ma commande était prête et parfaitement présentée à l'heure dite. Les fruits de mer étaient frais et excellents, mes invités se sont régalés !\nJe recommande vivement ce lieu pour le service et la qualité des produits proposés."
+            },
+            {
+                "stars": 5,
+                "comment": "Super restaurant, accueil très très chaleureux, rapport qualité-prix très bien, grand professionnalisme, plats délicieux. Un restaurant à faire absolument. On est arrivé à 12 assez tard et ils nous ont accueillis sans hésitation, on ne voit pas ça souvent et dans beaucoup de restaurant. Encore merci au personnel de La Criée La Villette. 😉👍😊"
+            },
+            {
+                "stars": 5,
+                "comment": "Bel accueil, vue unique ! Nous aimons nous y rendre régulièrement. Le service est de qualité, souriant, une équipe aux petits soins. Mention spéciale pour mon anniversaire et un chant unique de la part de l'équipe ! De quoi les inscrire à l'Opéra ! Merci à eux et au superbe plateau de fruits de mer !"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Le Bastringue",
+        "address": "67 Quai de la Seine, Paris",
+        "lat": 48.887985,
+        "long": 2.376973600000042,
+        "ratings": [
+            {
+                "stars": 3,
+                "comment": "Bistrot bondé, trop de bruit à tel point qu'on ne peut même plus discuter avec ses amis. Plat tout à fait moyen pour le prix. Présentation pas top et goût fade. Les amis qui avaient pris la viande ont pour le coup mieux apprécié leur plat. Carte à revoir ?"
+            },
+            {
+                "stars": 5,
+                "comment": "Superbe brasserie, cuisine au top et équipe dynamique. Je peux dire sans prétentions que nous faisons parti des habitués. La carte est variée et les plats recherchés.\nEn plus il y a des formules intéressantes (plat, entrée et/ou dessert) pas chères.\nPar contre, c'est bruyant impossible de discuter."
+            },
+            {
+                "stars": 5,
+                "comment": "Bistro parisien parfait : cuisine délicieuse et produit frais. Les serveurs sont gentils, agréables et rapides. Je recommande fortement"
+            },
+            {
+                "stars": 5,
+                "comment": "bistrot très sympa, nous avons adoré ! Les serveurs sont à l'écoute et très aimable. Nous y avons mangé deux fois et avons adoré à chaque fois. L'ambiance y est et les prix des plats sont très raisonnable avec une très bonne qualité de produits. Nous recommandons fortement cet endroit aux futurs personnes ;)"
+            },
+            {
+                "stars": 4,
+                "comment": "Un vrai Bistro parisien ! Un très bon rapport qualité / prix où on peut voir un effort dans la présentation des assiettes. Une cuisine à base de produits frais. Un service de qualité ! Une bonne adresse pour déjeuner dans le 19e arrondissement sur votre pause du midi ! Pensez à réserver à l'avance pour être sûr d'avoir une place. Petit bémol, j'ai eu mon entrecôte trop cuite alors que je la voulais saignante et du fait que nous soyons 5, nous avons été installé sur une table de 4 un peu serré. Dommage. Sinon le service est efficace."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Au Rendez-Vous de la Marine",
+        "address": "14 Quai de la Loire, Paris",
+        "lat": 48.8837754,
+        "long": 2.371782199999984,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "C'est bon, c'est copieux, on est de suite dans l'ambiance par l'accueil, le menu donne faim, bref ça invité a revenir tester toute la carte 😉.\nIls ont un \"petit\" fois à la framboise .... 🤤🤤🤤 Trop bon 🤤, des petites patates en entrée, une profiterole qui ne laissera personne s'échapper en ayant encore faim. ... Que du bon, à ne pas manquer 😊"
+            },
+            {
+                "stars": 5,
+                "comment": "Super rapport qualité prix, restaurant au max de ses capacités, un peu d'attente malheureusement. Les serveurs sont adorable et drôle. Nous avons mangé à notre faim 👍le dessert est monstrueux 🙄"
+            },
+            {
+                "stars": 4,
+                "comment": "Un établissement facile à vivre, un véritable accueil chaleureux où le personnel est attentionnée. J'y passe toujours d'agréables moments, les plats sont servis avec soin et la présentation vous  bascule dans une architecture somptueuse. Les tarifs sont raisonnables pour la qualité des produits fait entièrement maison. Je vous souhaite une très bonne dégustation dans cet espace tout proche du canal."
+            },
+            {
+                "stars": 4,
+                "comment": "Ambiance chaleureuse, bon produits de la mer. Je recommande la planche à partager.\nPar contre le restaurant ferme un petit peu tôt la cuisine pour le déjeuner ce qui se ressent sur l'empressement du service"
+            },
+            {
+                "stars": 5,
+                "comment": "Une très bonne table. L'accueil est chaleureux, le cadre est typique et surtout l'assiette est généreuse et délicieuse. Je recommande. Pensez à réserver pour ne pas vous retrouver à la porte."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Le Rond Point",
+        "address": "6 Avenue Jean Jaurès, Paris",
+        "lat": 48.8827928,
+        "long": 2.370839499999988,
+        "ratings": [
+            {
+                "stars": 4,
+                "comment": "Bonjour, ce petit bar/restaurant coincé entre deux autres bars et dont la porte d'entrée est face à un kiosque à journaux de la ville de Paris.\n\nL'accueil est sympathique, le service diligent Et la propreté des toilettes est impeccable.\n\nC'est tellement rare. La terrasse est fermée et garantie une certaine tranquillité pour les clients, des passants de la rue.\n\nEssayez-le, pour voir.\n\nA +pour d'autre avis."
+            },
+            {
+                "stars": 3,
+                "comment": "Très bon thé à la menthe ! Propreté des toilettes à revoir"
+            },
+            {
+                "stars": 4,
+                "comment": "Menu excellent et service rapide"
+            },
+            {
+                "stars": 5,
+                "comment": "Super endroit, j'y suis allé pour aller voir un match de foot et boire quelques verres. J'ai vue qu'ils avaient des mojitos à 5€ ce qui est vraiment pas chère pour Paris. J'ai testé et ils sont vraiment bons. J'ai aussi mangé un peu et c'était délicieux. Juste dommage lorsque j'y suis allé il ne faisait pas le couscous. Le personnel est agréable, j'y retournerai."
+            },
+            {
+                "stars": 4,
+                "comment": "Service rapide. Personnel agréable. Restaurant sans prétention mais menu à un prix très raisonnable."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Brasserie L'Olive",
+        "address": "8 Rue l'Olive, Paris",
+        "lat": 48.8905599,
+        "long": 2.3614727000000357,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Bon p\nPrix tout à fait correct \nAccueil fort sympatjiqie"
+            },
+            {
+                "stars": 4,
+                "comment": "Très bon rapport qualité prix"
+            },
+            {
+                "stars": 4,
+                "comment": "Service un peu long car le pauvre serveur été tout seul pour un vendredi soir. Sinon bon accueil prix un chouilla élevé pour une planche de fromages. Cependant je conseil pour la bonne ambiance et le bon accueil."
+            },
+            {
+                "stars": 5,
+                "comment": "Équipe au top ! et service excellent :)"
+            },
+            {
+                "stars": 5,
+                "comment": "Dans une rue tranquille. Très sympa pour boire un pot et grignoter en terrasse."
+            }
+        ]
+    },
+    {
+        "restaurantName": "McDonald's",
+        "address": "6 Rue de la Chapelle, Paris",
+        "lat": 48.8906139,
+        "long": 2.3603507000000263,
+        "ratings": [
+            {
+                "stars": 2,
+                "comment": "Deux étoiles car j en ai marre de manger des burgers froids, c est systématique c est vraiment pénible. Je n y vais presque plus car déçu à chaque fois. L établissement est plutôt avare sur les sauces par ailleurs ..."
+            },
+            {
+                "stars": 1,
+                "comment": "3.35 euros pour une grande frite alors que partout à 2.90e.\nLe triple cheese bacon à plus de 4.50 le burger...du coup je suis partit au restaurant et je mange un bon plat à 8.5 euros service et sourire compris..le gérant de se lieu doit avoir trop prix le soleil...pou5 info les copains le mac do de Crimée et beaucoup mois chère..."
+            },
+            {
+                "stars": 1,
+                "comment": "La pire expérience Mac do de toute ma vie.\nL'endroit n'est vraiment pas à recommander . \nLes serveurs désagréables et l'hygiène vraiment douteuse ... À l'image du quartier en faite :-). Bref à éviter"
+            },
+            {
+                "stars": 1,
+                "comment": "Extrêmement mal reçu ce matin, je n'ai jamais été reçu aussi même dans les pires fast-food, pas de bonjour, l'impression de déranger, une personne hautaine et insultante comme j'en ai rarement vu. Je vous déconseille fortement cet établissement, il ne devrait absolument pas faire partie de la franchise McDonald"
+            },
+            {
+                "stars": 5,
+                "comment": "Les travaux sont réussis, bonne répartition des tâches et des comptoirs. C’est propre. \nÀ chaque fois que j’ai patienté un peu plus longtemps que prévu,  deux fois en l’occurence, le responsable s’est excusé auprès de moi et m’a proposé spontanément une glace ou une offre pour ma prochaine visite. Je trouve ça très professionnel et respectueux ! \nRarement déçu par mes commandes, je recommande !"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Le Moulin de la Galette",
+        "address": "83 Rue Lepic, Paris",
+        "lat": 48.8874143,
+        "long": 2.337130800000068,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Habitants le quartier nous avons été accueillis par le nouveau propriétaire des lieux.  Nous avons choisi la table 35 dans la salle climatisée.  2 coupes de champagne pour commencer et 2 menus à à  31 € avec foie gras, tartare de saumon quinoa à la framboise, puis 2 souris d'agneau au miel et 4 épices, énormes et délicieuses. Nombreux serveurs très à l'écoute des clients.  Une pensée pour Dalida que nous avons connue et dont la table est restée la même dans ce restaurant et que vous pouvez réservée en arrivant. Nous allons y retourner rapidement et vous recommandons cet excellent et mythique restaurant."
+            },
+            {
+                "stars": 5,
+                "comment": "Je suis venue déjeuner lundi 29 avec ma fille, attirées tout d abord par le côté romantique du lieu. Les serveurs sont souriants, détendus tout en restant très professionnels.  Ma fille a pris une entrée de thon et des lasagnes aux épinards, moi un lieu et une verrine pistache /framboise arrosés d une bouteille de pinot noir. En partant nous sommes passées remercier et féliciter les cuisiniers pour cette excellente cuisine. C est vraiment un endroit où je reviendrai pour un repas en tête à tête avec mon conjoint. (Il y a une terrasse fleurie qui doit être bien agréable au beau temps)."
+            },
+            {
+                "stars": 1,
+                "comment": "Nourriture correcte mais service complètement amateur. Nous avons commandé deux plats et deux boissons. 15 minutes après les plats arrivent mais un n’était pas le bon, du coup nous avons attendu 15 min de plus pour au final manger le premier froid. Les boissons sont elles aussi arrivée après 15 min et le serveur ne savait même plus ce que nous avions commandé. L’équipe doit apprendre  leur boulot, car servir les couverts aux clients après les plats et surtout les placer en passant ses bras devant la tête du client, c’est du total amateurisme. PS : nous attendons toujours notre carafe d’eau."
+            },
+            {
+                "stars": 5,
+                "comment": "Il y avait très longtemps que je voulais découvrir ce lieu , c’est fait . Apéritif en terrasse et déjeuner à l’intérieur. Merci pour l’accueil très chaleureux, le déjeuner excellent et les crêpes Suzette ....à tomber. Belle ambiance et service parfait . À très vite 😍"
+            },
+            {
+                "stars": 2,
+                "comment": "Cet endroit surfait n'est pas à la hauteur de ce qu'il prétend. Service négligé, nourriture correcte mais chère et assiette froide. Je vous conseille d'oublier les toilettes. Si ce n'est pour le cadre, passez votre chemin."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Hôtel Particulier Montmartre",
+        "address": "Pavillon D, 23 Avenue Junot, Paris",
+        "lat": 48.8878691,
+        "long": 2.33534039999995,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Un petit coin secret en plein cœur de Paris. Parfait pour un brunch entre amis ou en famille ! Mention spéciale pour le Très Particulier et les superbes cocktails créés par Guillaume ! On s’y sent bien !"
+            },
+            {
+                "stars": 2,
+                "comment": "1 invitation ( 6 convives) réservation non enregistrée \nDu début jusqu'à a la fin incompétence totale du personnel !\nEx : vin servi comme 1 cruche d eau sans le faire tester etc.....attente plus d 1 heure pour les cocktails sans excuse\nInacceptable pour ce lieu qui reste magique de part son cachet atypique mais réellement gâche ne donnant pas l envie d y retourner !\nBien dommage allez y pour uniquement tester le jardin intérieur !"
+            },
+            {
+                "stars": 1,
+                "comment": "Réservation 3 jours avant en terrasse. Le jour j on nous propose une place a l'intérieur. Car plus de place. Avec insistance on demande une place en terrasse, chose fait. Commande au bout de une heure, alors que tous les employés passent devant sans se soucier... Nous avons du partir car au bout de 1 H15 avoir de l'eau et du jus d'orange ça reste un peu limite.\nMalgré tout ça le lieu reste magique ,mais le service vient tout gâcher. Fuyez !!"
+            },
+            {
+                "stars": 5,
+                "comment": "Accueil très chaleureux, super service. Une ambiance agréable du matin au dîner, un peu plus andiablée le soir. Je recommande fortement !"
+            },
+            {
+                "stars": 1,
+                "comment": "Personnel très peu aimable. De plus il y avait une odeur d'égouts qui s'est peu à peu installée au cours de la soirée. Vraiment à fuir. Le plus vite possible."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Hotel Bienvenue Paris",
+        "address": "23 Rue Buffault, Paris",
+        "lat": 48.87615829999999,
+        "long": 2.3421822999999904,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Très bel hôtel avec un service de qualité.\nPour parfaire le tout, le restaurant est excellent pour un budget tout à fait abordable."
+            },
+            {
+                "stars": 4,
+                "comment": "Hôtel agréable, accueil chaleureux et personnalisé. Cuisine pleine d originalité et d exotisme. Une adresse à retenir."
+            },
+            {
+                "stars": 5,
+                "comment": "Hôtel un peu caché. Le restaurant est très bon. Pleins de petits plats en tapas. Original. Le Service impeccable, bien entretenu. Toilettes propres. Personnel aimable."
+            },
+            {
+                "stars": 5,
+                "comment": "comment mieux etre accueilli une soiree sur Paris qu'en allant ici !"
+            },
+            {
+                "stars": 5,
+                "comment": "Très belle place, menu original et créatif!"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Hôtel Mercure Paris Opéra Louvre",
+        "address": "95 Rue de Richelieu, Paris",
+        "lat": 48.87110930000001,
+        "long": 2.339514699999995,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Au top! Idéalement situé dans un quartier animé et bien desservi. Travaux dans la rue (JO 2024) mais qui n'empêche en aucun cas de dormir. Chambre agréable et bien agencée. Une mention spéciale au personne de l'hôtel particulièrement bienveillant, du responsable au jeune stagiaire prometteur présent à l'accueil. Point de vigilance : les prix. Conclusion : Je recommande!"
+            },
+            {
+                "stars": 4,
+                "comment": "Très bon établissement. Personnel attentionné et agrèable. Je retire une étoile pour la literie qui est vraiment trop ferme à mon sens."
+            },
+            {
+                "stars": 1,
+                "comment": "Chambre trop petite, même pas la place de poser sa valise (obligé de la ranger dans le placard pour circuler), pas de bureau (alors travailler sur le lit, pas terrible), pas de bouteille d'eau à disposition et trop bruyante.\nPetit déjeuner décevant. incompréhensible de boire son thé dans une tasse à café... Après renseignement ou oubli lors de la préparation, non, il n'y en a pas...\nHeureusement, literie confortable et personnel agréable."
+            },
+            {
+                "stars": 5,
+                "comment": "Hôtel idéalement placé.\nAccueil et check in rapide et préparé digne d'un Mercure.\nChambre de niveau +++ Mercure.\nÉquipements au top nespresso mini bar compris. \nPetit déjeuner sympa varié avec thés de qualité en buffet."
+            },
+            {
+                "stars": 2,
+                "comment": "Mouais. Je n'y retournerai pas nécessairement. Trop de travaux en cours. Le petit déjeuner buffet pas à la hauteur d'autres hotelMercure"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Hôtel Sofitel Paris le Faubourg",
+        "address": "15 Rue Boissy d'Anglas, Paris",
+        "lat": 48.868414,
+        "long": 2.321324699999991,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "J’ai passé un super séjour dans cet hôtel ! Le personnel à été très présent et d’une grande gentillesse ! je reviendrai"
+            },
+            {
+                "stars": 5,
+                "comment": "Un hôtel très prestigieux où sécurité des clients, raffinement et élégance sont vraiment au rendez-vous. Un haut lieu d'excellence."
+            },
+            {
+                "stars": 4,
+                "comment": "Un bar sympa pour un rendez vous affaires ou privé. Excellent service"
+            },
+            {
+                "stars": 5,
+                "comment": "Genial, personnel attentionné et réactif. Je recommande !"
+            },
+            {
+                "stars": 2,
+                "comment": "Inqualifiable !!!!!! Cocktail pas à la mesure de ce que j'attendais mais le pire c'est la migration de fourmis et le nettoyage pas fait d'où la prolifération. Je voulais même leur demander un aspirateur pour faire le ménage !"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Hôtel Scribe Paris Opéra",
+        "address": "1 Rue Scribe, Paris",
+        "lat": 48.87056459999999,
+        "long": 2.3297320000000354,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "J'y vais plusieurs fois aussi bien à titre professionnel, amical ou familial. L’accueil est toujours excellent et les plats créatifs. Une ambiance qui favorise le bien vivre et le partage."
+            },
+            {
+                "stars": 4,
+                "comment": "Cadre du restaurant discret et sobre. La cuisine est très bonne et le maître d'hôtel à l'écoute. Le service était un peu long mais il nous avait prévenus. Ça mérite une prochaine visite."
+            },
+            {
+                "stars": 5,
+                "comment": "Très bon séjour Equipe attentive et attentionnée. Bon restaurant produits frais et de qualité \nJ attends avec impatience de pourvoir visiter le restaurant rénové. \nJe recommande cet hôtel."
+            },
+            {
+                "stars": 5,
+                "comment": "On ne pense pas assez souvent au  restaurant des hôtels pour prendre un bon tea-time au calme, dans un bel endroit pour un prix raisonnable."
+            },
+            {
+                "stars": 5,
+                "comment": "La classe rien de moins. Je ne peux pas me payer une chambre dans cet hôtel mais le resto je peux. Un vrai régal, de la vrai gastronomie française."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Saint James Albany Paris Hôtel Spa",
+        "address": "202 Rue de Rivoli, Paris",
+        "lat": 48.86427329999999,
+        "long": 2.3307889999999816,
+        "ratings": [
+            {
+                "stars": 4,
+                "comment": "Emplacement idéal. Literie très confortable, chambre standard assez petite (très peu de rangement) mais confortable. Spa et piscine (15m sur 4) très agréables, ambiance globale luxueux dans des beaux salons. A noter, la possibilité souvent offerte de réserver des chambres à prix réduit (inférieur a 200e la nuit), ce qui rend le rapport qualité-prix excellent."
+            },
+            {
+                "stars": 4,
+                "comment": "Gros confort. Hammam et piscine juste fabuleux. Personnel adorable en revanche la douche dans la chambre qui ne tient pas est gênante pour se laver .sinon un bon moment ouais"
+            },
+            {
+                "stars": 3,
+                "comment": "Hôtel chic de la rue de Rivoli. Le spa est très agréable."
+            },
+            {
+                "stars": 3,
+                "comment": "Hôtel bien placé dans Paris mais chambre à revoir et lit peu confortable . Femme de chambre ouvrant la porte à 8h30 alors que vous êtes encore dans la chambre,  est un acte très moyen pour donner une bonne note."
+            },
+            {
+                "stars": 3,
+                "comment": "un accueil chaleureux et très professionnel, le personnel est disponible et souriant ... hotel en cours de modernisation je pense .. certaines choses restent à rafraichir ( moquette dans les chambres et insonorisation entre autres ...) ... \nsituation géographique idéale."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Hôtel Lumen Paris Louvre",
+        "address": "15 Rue des Pyramides, Paris",
+        "lat": 48.8652582,
+        "long": 2.3329631999999947,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Exceptionnel. \nTout dans ce restaurant est décalé. Le service dans une proximité juste nous a fait nous sentir comme chez des amis. la cuisine entre deux cultures, le cadre sobre bien loin des standards hype parisiens.\nOn se sent très bien chez Lumen.\nLe plus important, ce qu’il y a dans l’assiette, ne nous a pas déçu, bien au contraire. Les mélanges de saveur sont d’une finesse rare."
+            },
+            {
+                "stars": 5,
+                "comment": "Beau cadre et excellent restaurant. Les plats sont fins et bien présentés. Le service était parfait."
+            },
+            {
+                "stars": 5,
+                "comment": "Nous avons adore notre expérience un soir de semaine au mois de juillet 2018. La nourriture était exceptionnelle. Le personnel était très sympathique !! Le cadre en terrasse superbe. Une soirée impeccable dont je me souviendrai longtemps. Le mélange des saveurs italiennes et japonaises parfait. \nMerci à toute l'équipe pour ce moment."
+            },
+            {
+                "stars": 5,
+                "comment": "Une cuisine italienne revisitée avec justesse et  délicatesse par un chef japonais inventif, accordée avec des vins italiens choisis par une sommelière top et un service attentionné. J'adore !"
+            },
+            {
+                "stars": 5,
+                "comment": "Un nouvel établissement très bien situé avec beaucoup de lumière et une ambiance réussie. Une cuisine italienne revisitée par un chef japonais qui a séjourné en Italie. Des produits frais, une formule express à 38€ et affaires à 48€.\nTrès bien pour le business en semaine"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Hôtel Novotel Paris les Halles",
+        "address": "8 Place Marguerite de Navarre, Paris",
+        "lat": 48.861013,
+        "long": 2.3464930000000095,
+        "ratings": [
+            {
+                "stars": 5,
+                "comment": "Très bon séjour dans cet hôtel ! L’emplacement, le personnel et les services sont au top ! Nous avons eu un surclassement offert, la chambre était spacieuse et très propre. Une très bonne expérience, bien qu’elle fut courte. Je reviendrai sans hésiter !"
+            },
+            {
+                "stars": 5,
+                "comment": "Excellent séjour. Chambres modernes et bien équipées. Petit déjeuner très complet et de bonne qualité. Personnel souriant et professionnel.\nJe recommande cet hôtel aussi bien pour des voyages d'affaires que de loisirs."
+            },
+            {
+                "stars": 5,
+                "comment": "Bien placé, propre, très bon accueil. Coin café et restaurant et pause travail possible. Chambres et lieux propres. Assez cher en restaurant et en boisson par contre"
+            },
+            {
+                "stars": 3,
+                "comment": "Juste un séminaire d'une journée. J'ai bien aimé la restauration sous forme de buffet bien que le choix soit limité. Par contre notre salle n'était pas super top pour les quelques 100 personnes que nous étions. Difficulté à voir les écrans lorsqu'on est au fond de la salle et matériel audio plusieurs fois défaillant. Idéalement placé au centre de Paris."
+            },
+            {
+                "stars": 5,
+                "comment": "Bien plus qu’un hôtel !\nUn établissement « comme à la maison » avec une équipe aux petits soins et un service haut de gamme irréprochable. De nombreuses animations tout au long de l’année et pour tous les goûts et toutes les bourses. Un jardin au cœur de l’hôtel propose un vrai moment de détente avec le T.time et ses délicieuses pâtisseries. C’est un must et un havre de paix qui fait du bien au centre du tumulte Parisien. 🥰\nMerci beaucoup."
+            }
+        ]
+    },
+    {
+        "restaurantName": "Le Grand Colbert",
+        "address": "2 Rue Vivienne, Paris",
+        "lat": 48.8666252,
+        "long": 2.3390047000000322,
+        "ratings": [
+            {
+                "stars": 4,
+                "comment": "Restaurant de qualité.  Service impeccable.  Impressionnant plateau de fruit de mer. Belle salle. Beau décor.  Il faut réserver sinon pas sur d'avoir de la place. Très prisé des touristes"
+            },
+            {
+                "stars": 4,
+                "comment": "Cadre très sympathique, carte classique mais de qualité, portions généreuses mais tarifs assez élevés. Très bonne adresse néanmoins. \nJe recommande les harangs à l'huile en entrée et les rognons !"
+            },
+            {
+                "stars": 4,
+                "comment": "Très bonne brasserie typiquement parisienne au décor superbe, lieu de tournage d'une scène du film Tout peut arriver avec Jack Nickolson . Les prix sont un peu élevés mais le service est de qualité et les plats savoureux"
+            },
+            {
+                "stars": 3,
+                "comment": "Dîner en couple , idéalement placé pour un avant ou après spectacle. Bon accueil,une belle ambiance « classée « .\nUn repas classique brasserie, bon et bien présenté par un personnel prévenant.\nSeul bémol un verre de vin servi glacé."
+            },
+            {
+                "stars": 5,
+                "comment": "sans doute un des meilleurs restaurants de tout paris, au top de la gastronomie française, et leur foie gras poêlé un vrai délice avec ces pommes Hummmm... l'une de mes tables favorites"
+            }
+        ]
+    },
+    {
+        "restaurantName": "Le Comptoir de La Gastronomie",
+        "address": "34 Rue Montmartre, Paris",
+        "lat": 48.8645451,
+        "long": 2.345367300000021,
+        "ratings": [
+            {
+                "stars": 3,
+                "comment": "Trop de touristes,  service aimable. Mais il vaut mieux faire la réservation avant, le fil d'attente est troooop long. Les plats sont pas mal mais ne m'ont pas donné des surprises... Un peu décevant.."
+            },
+            {
+                "stars": 5,
+                "comment": "La soupe aux oignons est excellente et le service très très bon. Sourire du personnel, serviable et produit de qualité. Recommande vivement."
+            },
+            {
+                "stars": 5,
+                "comment": "Toujours aussi bien servi comme accueilli  là carte des vins un festival \n\nLes plats très très raffinés \n  La décoration  est très élégante et sobre  la couleur des rideaux  est grandiose  sans parlé de la longueur !!!"
+            },
+            {
+                "stars": 1,
+                "comment": "Pour le recrutement ces deux patronnes n'ont pas de paroles... Il faut le savoir... Pour le reste ça ne fait pas Honneur au Sud-Ouest. C'est dommage je déconseille."
+            },
+            {
+                "stars": 1,
+                "comment": "Personnel salle très bien cuisine N’importe quoi il sort de l’assiette froid\nEn plus très très long"
+            }
+        ]
+    }
+]

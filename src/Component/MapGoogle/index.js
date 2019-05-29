@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import homeMarker from "../../assets/home.png";
 import PropTypes from "prop-types";
 
 class MapGoogle extends Component {
@@ -144,7 +145,7 @@ class MapGoogle extends Component {
           position: pos,
           map: map,
           icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/grn-pushpin.png"
+            url: homeMarker
           }
         });
         ////////////////////////////////////////////

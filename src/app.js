@@ -5,6 +5,7 @@ import Liste from "./Component/Liste";
 import Rating from "./Component/Rating";
 import AddRestaurant from "./Component/AddRestaurant";
 import geoMarker from "./assets/restaurant.png";
+import newRestaurantMarker from "./assets/newRestaurant.png";
 
 var data = require("./data/restaurant.json");
 
@@ -136,34 +137,64 @@ class App extends Component {
     geocoder.geocode({ location: { lat, lng } }, (results, status) => {
       if (status === "OK") {
         if (results[0]) {
+          let marker = new google.maps.Marker({
+            position: {
+              lat: results[0].geometry.location.lat(),
+              lng: results[0].geometry.location.lng()
+            },
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: {
+              url: newRestaurantMarker
+            }
+          });
           this.setState({
             displayAddRestaurant: true,
             map: map,
             newAddress: results[0].formatted_address,
             newName: "",
             newLat: results[0].geometry.location.lat(),
-            newLng: results[0].geometry.location.lng()
+            newLng: results[0].geometry.location.lng(),
+            markers: [...this.state.markers, marker]
           });
         } else {
           window.alert("Pas de résultat connu");
+          let marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: {
+              url: newRestaurantMarker
+            }
+          });
           this.setState({
             displayAddRestaurant: true,
             map: map,
             newName: "",
             newAddress: "",
             newLat: lat,
-            newLng: lng
+            newLng: lng,
+            markers: [...this.state.markers, marker]
           });
         }
       } else {
         window.alert("Echec du geocoder : " + status);
+        let marker = new google.maps.Marker({
+          position: { lat: lat, lng: lng },
+          map: map,
+          animation: google.maps.Animation.DROP,
+          icon: {
+            url: newRestaurantMarker
+          }
+        });
         this.setState({
           displayAddRestaurant: true,
           map: map,
           newName: "",
           newAddress: "",
           newLat: lat,
-          newLng: lng
+          newLng: lng,
+          markers: [...this.state.markers, marker]
         });
       }
     });
@@ -278,6 +309,7 @@ class App extends Component {
       <div>
         <header>
           <h1>Greedy POV</h1>
+          <hr></hr>
         </header>
         <main>
           {this.state.loaded && (
@@ -322,6 +354,8 @@ class App extends Component {
             />
           )}
         </main>
+        <footer>© 2019 Copyright <a href="https://emeric.hochart.info/">Emeric Hochart</a>
+        </footer>
       </div>
     );
   }

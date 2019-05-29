@@ -1,65 +1,234 @@
-/* Optional: Makes the sample page fill the window. */
-header {
-    text-align:center;
+/* CSS by Emeric Hochart */
+body {
+    background-color: black;
+    background-image: url(../assets/jay-wennington-2065-unsplash.png);
+    /* Photo by Jay Wennington on Unsplash*/
+    background-position: center;
+    background-attachment: fixed;
 }
+
+h1,
+h2 {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px black;
+    color: white;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+/* Style hr */
+hr {
+    background: url(../assets/restaurant.png) no-repeat top center;
+    background-size: contain;
+    display: block;
+    height: 28px;
+    border: 0;
+    position: relative;
+}
+
+hr:before,
+hr:after {
+    content: '';
+    display: block;
+    position: absolute;
+    background: #fa7d00;
+    height: 2px;
+    top: 15px;
+}
+
+@keyframes leftAnim {
+    from {
+        left: 55%;
+    }
+
+    to {
+        left: 25%;
+    }
+}
+
+@keyframes rightAnim {
+    from {
+        right: 55%;
+    }
+
+    to {
+        right: 25%;
+    }
+}
+
+hr:before {
+    left: 25%;
+    right: 50%;
+    margin-right: 18px;
+    animation-name: leftAnim;
+    animation-duration: 2s;
+}
+
+hr:after {
+    right: 25%;
+    left: 50%;
+    margin-left: 18px;
+    animation-name: rightAnim;
+    animation-duration: 2s;
+}
+/* Section */
+header {
+    text-align: center;
+}
+
 main {
-    height:auto;
+    height: auto;
     display: flex;
 }
-/* Always set the map height explicitly to define the size of the div
-* element that contains the map. */
+
+footer {
+    color:white;
+    text-align: right;
+    padding-right:20px;
+}
+footer>a {
+    color:white;
+}
+
+/* <MapGoogle /> */
 #map {
     width: 45%;
     height: 640px;
     margin: auto;
     background-color: grey;
-    margin: 20px;    
-    border: 1px solid red;
-}
-#listeRestaurants {    
-    width: 45%;
-    height: 600px;
-    background-color: rgba(255, 255, 255, 0.1);
     margin: 20px;
-    padding: 20px;    
-    border: 1px solid black;
-    overflow: auto;
+    border: 1px solid #fa7d00;
+    border-radius: 2px 34px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .8);
 }
 
-#addRestaurant {    
+/* <Liste/> */
+#listeRestaurants {
     width: 45%;
-    background-color: rgba(255, 255, 255, 0.1);
+    height: 600px;
+    background-color: rgba(0, 0, 0, 0.4);
     margin: 20px;
-    padding: 20px;    
-    border: 1px solid black;
+    padding: 20px;
+    border: 1px solid #fa7d00;
+    border-radius: 34px 2px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .8);
+    overflow: auto;
+    opacity: 1;
+    animation-name: introduction;
+    animation-duration: 1500ms;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes introduction {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 #listeRestaurants img {
-    width:100%;
+    width: 100%;
 }
 
-#rating {
-    display : flex;    
-    width: 10%;
+.content {
+    padding: 0 18px;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    animation: contentAnimation 2s ease-out;
+    opacity: 1;
+}
+
+@keyframes contentAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* <AddRestaurant /> */
+#addRestaurant {
+    width: 45%;
+    background-color: rgba(255, 255, 255, 0.1);
     margin: 20px;
+    padding: 20px;
+    border: 1px solid #fa7d00;
+    border-radius: 34px 2px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .8);
+    color:white;
+    display:flex;
+    flex-direction: column;
+    align-content: center;    
+}
+#addRestaurant button {    
+    border: 0 solid black;
+    width:50%;
+    margin-top:20px;
+    margin-left: 50%;
+    padding:auto;
+    transform: translateX(-50%);
+}
+
+#addRestaurant button:hover {
+    background-color:#fa7d00;
+    color:white;    
+}
+
+input {
+    width:100%;    
+}
+
+#submitRestaurant {
+    border: 0 solid black;
+    margin-left: 50%;
+    padding:auto;
+    transform: translateX(-50%);
+    width:50%;
+}
+
+#submitRestaurant:hover {
+    background-color:#2afa00;
+    color:white;
+}
+
+/* <Rating /> & <Star /> */
+#rating {
+    display: flex;
+    justify-content: space-between;
+    width: 10%;
+    margin: 20px 10px 10px 10px;
     padding: auto;
 }
 
 .starRating {
     text-align: center;
-  }
-  
-i { 
-    color: darkgoldenrod;
+}
+
+i {
+    color: #fa7d00;
+    font-size: 1.6em;
 }
 
 li {
     text-decoration: none;
 }
 
-.collapsible {
-    background-color: #eee;
-    color: #444;
+/* Collapse */
+.collapsible {    
+    color: white;
     cursor: pointer;
     padding: 0.5em;
     width: 100%;
@@ -67,30 +236,48 @@ li {
     text-align: left;
     outline: none;
     font-size: 15px;
+    animation-name: animationCollapse;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    opacity: 1;
 }
 
-.trueCollapse {
+@keyframes animationCollapse {
+    0% {
+        opacity: 0;
+    }
 
+    100% {
+        opacity: 1;
+    }
 }
 
-.falseCollapse {
+.trueCollapse {background-color: #2afa00;text-align: center;}
 
+.falseCollapse {background-color: #fa7d00;}
+
+.active,
+.collapsible:hover {
+    background-color: #2afa00;
+    text-align: center;
 }
 
-.active, .collapsible:hover {
-    background-color: #ccc;
-}
-  
 .content {
-    padding: 0 18px;    
+    padding: 0 18px;
     overflow: hidden;
     background-color: #f1f1f1;
+    animation: contentAnimation 2s ease-out;
+    opacity: 1;
 }
 
-.addRating {
-    background-color: yellow;
-    padding: 20px;
-    margin : 5px;
+@keyframes contentAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .trueCollapse::before {
@@ -104,8 +291,8 @@ li {
     width: 20px;
     height: 20px;
     margin-right: 3px;
-    background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
-  }
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 50%, transparent 50%);
+}
 
 .falseCollapse::before {
     font-family: Consolas, monaco, monospace;
@@ -118,7 +305,18 @@ li {
     width: 20px;
     height: 20px;
     margin-right: 3px;
-    background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 50%, transparent 50%);
 }
 
+/* Add Rating */
+.addRating {
+    background-color: #eee;
+    padding: 20px;
+    margin: 5px;
+}
 
+/* Form */
+
+textarea {
+    width:100%;
+}

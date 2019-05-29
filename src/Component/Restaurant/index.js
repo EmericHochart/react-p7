@@ -52,7 +52,7 @@ class Restaurant extends Component {
     const stars =
       this.state.starCurrent[0] === false
         ? 0
-        : this.state.starCurrent.lastIndexOf(true) + 1;
+        : this.state.starCurrent.lastIndexOf(true) + 1;    
     // On passe en paramètre le commentaire, la note et les coordonnées du restaurant
     this.props.addRating(comment, stars, this.props.lat, this.props.lng);
     // Mise à jour de l'état local
