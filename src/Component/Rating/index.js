@@ -1,5 +1,6 @@
 import React from 'react';
 import Star from '../Star';
+import PropTypes from "prop-types";
 
 const Rating = (props) => { 
     const listStar = props.current.map((star,index) =>
@@ -8,5 +9,6 @@ const Rating = (props) => {
         {listStar}
     </div> );
 }
- 
+// TODO PropTypes
+// Rating.propTypes = 
 export default Rating;

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
 class Star extends Component {    
-    // arrow fx for binding
     handleClick = () => {
-        // On envoie l'index de l'étoile        
+        // We send the index of the star        
         this.props.onClick(this.props.index);
     }
     render() { 

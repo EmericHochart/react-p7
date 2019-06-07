@@ -25,7 +25,7 @@ class Restaurant extends Component {
   }
 
   collapse = () => {
-    // Mise à jour de l'état local
+    // Update local state
     this.setState({
       isCollapse: !this.state.isCollapse,
       displayAddRating: 
@@ -36,26 +36,26 @@ class Restaurant extends Component {
   };
 
   displayAddRating = () => {
-    // Mise à jour de l'état local
+    // Update local state
     this.setState({
       displayAddRating: !this.state.displayAddRating
     });
   };
 
   rate = () => {
-    // On récupère la valeur du textarea
+    // We recover the value of the textarea
     const comment =
       this.state.valueTextArea === MERCI_DE_METTRE_UN_COMMENTAIRE
         ? "Pas de commentaire"
         : this.state.valueTextArea;        
-    // Si la première valeur de starCurrent est false alors stars = 0 sinon on récupère le dernier indice dont la valeur est true (remarque : index = -1 => stars = 0)
+    // If the first value of starCurrent is false then stars = 0 else we get the last index whose value is true (note: index = -1 => stars = 0)
     const stars =
       this.state.starCurrent[0] === false
         ? 0
         : this.state.starCurrent.lastIndexOf(true) + 1;    
-    // On passe en paramètre le commentaire, la note et les coordonnées du restaurant
+    // We pass in parameter the comment, the note and the coordinates of the restaurant
     this.props.addRating(comment, stars, this.props.lat, this.props.lng);
-    // Mise à jour de l'état local
+    // Update local state
     this.setState({
       displayAddRating: !this.state.displayAddRating,
       valueTextArea: MERCI_DE_METTRE_UN_COMMENTAIRE
@@ -63,9 +63,9 @@ class Restaurant extends Component {
   };
 
   handleRating = index => {
-    // Mise à jour de l'état local
-    // Si l'étoile était allumée, on l'éteint et on éteint les étoiles suivantes
-    // Sinon l'étoile était éteinte, on l'allume et on allume les étoiles précédentes
+    // Update local state
+    // If the star was on, turn it off and turn off the next stars
+    // Otherwise the star was off, we turn it on and we light the previous stars
     this.setState({
       starCurrent:
         this.state.starCurrent[index] === true
@@ -79,22 +79,22 @@ class Restaurant extends Component {
   };
 
   handleChangeTextArea = event => {
-    // Mise à jour de l'état local
+    // Update local state
     this.setState({ valueTextArea: event.target.value });
   };
 
   render() {
-    // Calcul de la moyenne des commentaires
+    // Calculation of the average of the comments
     const numberRatings = this.props.ratings.length;
     let averageRating = 0;    
     this.props.ratings.map(rating => (averageRating += rating.stars));
-    // On récupère les coordonnées
+    // We recover the coordinates
     const location = this.props.lat + "," + this.props.lng;
-    // On récupère l'url de la photo google street view correspondant aux coordonnées
+    // We get the url of the photo google street view corresponding to the coordinates
     let url =
       "https://maps.googleapis.com/maps/api/streetview?size=600x600&location=" +
       location +
-      "&key="+API_KEY;
+      "&key="+API_KEY;    
 
     return (
       <div>

@@ -30,15 +30,16 @@ class App extends Component {
       markers: []
     };
   }
-
-  // Arrow fx for binding
+  
   _handleChange = restaurants => {
+    // We recover the filtering data
     let filterMin = this.state.starCurrent.indexOf(true);
     let filterMax = this.state.starCurrent.lastIndexOf(true);
     let restaurantsFiltered = [];
-
+    // We empty the markers
     this._clearMarkers();
-
+    // If no star is selected, we display all the restaurants
+    // otherwise we only display restaurants with an average between the filter terminals
     if (filterMin === -1) {
       this.setState({
         restaurantsDisplayed: restaurants,
@@ -65,13 +66,13 @@ class App extends Component {
   };
 
   handleFilter = index => {
-    // Manage Filter
     let tampon = null;
     let current = this.state.starCurrent;
+    // If the star is on it is turned off or it is turned on
     current[index] === true
       ? (current[index] = false)
       : (current[index] = true);
-
+    // Manage Filter
     if (current[index] === true) {
       current.indexOf(true) < index
         ? current.fill(true, current.indexOf(true), index)
@@ -83,14 +84,14 @@ class App extends Component {
         ? current.fill(false, index)
         : (tampon = null);
     }
-
-    // Filtered
+    // We recover the filtering data
     let filterMin = this.state.starCurrent.indexOf(true);
     let filterMax = this.state.starCurrent.lastIndexOf(true);
     // Check Restaurants displayed
     let restaurantsDisplayed = [...this.state.restaurantsDisplayed];
     let restaurantsFiltered = [];
-    // Cas Particulier : on affiche tous les restaurants même ceux avec une note égale à 0
+    // If no star is selected, we display all the restaurants
+    // otherwise we only display restaurants with an average between the filter terminals
     if (filterMin === -1) {
       restaurantsFiltered = restaurantsDisplayed;
     } else {
@@ -107,7 +108,9 @@ class App extends Component {
         }
       });
     }
+    // We empty the markers
     this._clearMarkers();
+    // Add a marker for each restaurant in the filtered list
     this._addMarker(restaurantsFiltered, this.state.map);
     this.setState({
       starCurrent: current,
@@ -117,11 +120,13 @@ class App extends Component {
 
   _addRating = (comment, stars, lat, lng) => {
     let restaurants = this.state.restaurants;
+    // We recover the restaurant thanks to these coordinates
     let index = this.state.restaurants.findIndex(restaurant => {
       if (restaurant.lat === lat && restaurant.long === lng) {
         return restaurant;
       }
     });
+    // Then save the comment and note if the restaurant is in the list of restaurants
     index === -1
       ? console.log("restaurant inexistant")
       : restaurants[index].ratings.push({ stars: stars, comment: comment });
@@ -133,7 +138,7 @@ class App extends Component {
   _addRestaurant = (lat, lng, map) => {
     const google = this.state.google;
     const geocoder = new google.maps.Geocoder();
-
+    // We use the geocoding API to retrieve the nearest address and we put a specific marker
     geocoder.geocode({ location: { lat, lng } }, (results, status) => {
       if (status === "OK") {
         if (results[0]) {
@@ -201,7 +206,7 @@ class App extends Component {
   };
 
   _addNewRestaurant = (name, address, lat, lng) => {
-    // On construit l'objet restaurant
+    // We build the restaurant object
     let restaurant = {
       restaurantName: name,
       address: address,
@@ -209,8 +214,7 @@ class App extends Component {
       long: lng,
       ratings: []
     };
-
-    // Si le restaurant n'existe pas, on l'ajoute sinon on indique qu'il existe déjà
+    // If the restaurant does not exist, add it otherwise it indicates that it already exists
     this.state.restaurants.findIndex(item => {
       if (item.restaurantName === name && item.address === address) {
         return item;
@@ -233,6 +237,8 @@ class App extends Component {
 
   _addRestaurantsAround = restaurant => {
     let restaurantExist = false;
+    // If the restaurant is not in the list of restaurants, add it
+    // TODO : code optimization
     this.state.restaurants.forEach(function(item) {
       if (item.lat === restaurant.lat && item.long === restaurant.long) {
         restaurantExist = true;
@@ -262,6 +268,7 @@ class App extends Component {
   _addMarker = (restaurants, map) => {
     const google = this.state.google;
     let markers = [];
+    // For each restaurant on the list, add a marker
     restaurants.map(restaurant => {
       let location = { lat: restaurant.lat, lng: restaurant.long };
       let marker = new google.maps.Marker({
@@ -274,6 +281,7 @@ class App extends Component {
       });
       markers = [...markers, marker];
     });
+    // The list of markers is updated
     this.setState({
       markers: markers,
       map: map
@@ -281,6 +289,7 @@ class App extends Component {
   };
 
   _clearMarkers = () => {
+    // Remove the markers from the map and update the list of markers
     let markers = this.state.markers;
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(null);

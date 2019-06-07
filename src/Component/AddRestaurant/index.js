@@ -21,10 +21,10 @@ class AddRestaurant extends Component {
   }
   
   submitNewRestaurant = (event) => {
-    //  On annule l'action implicite d'envoi au serveur du formulaire concerné.
+    //  We cancel the implicit action of sending to the server of the concerned form
     event.preventDefault();
     const {name,address,lat,lng} = this.props;
-    // On envoie en paramètre les coordonnées et les valeurs du formulaire    
+    // We send as parameter the coordinates and values ​​of the form   
     this.props.addNewRestaurant(name,address,lat,lng);
   }
 
@@ -62,5 +62,5 @@ class AddRestaurant extends Component {
     );
   }
 }
-
+// TODO PropTypes
 export default AddRestaurant;

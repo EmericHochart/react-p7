@@ -4,7 +4,6 @@ import Restaurant from "../Restaurant";
 const Liste = (props) => (
 <div id="listeRestaurants">
         <h2>{props.nameList}</h2>
-
         {props.restaurants.map(restaurant => (          
           <Restaurant
             name={restaurant.restaurantName}
@@ -18,5 +17,5 @@ const Liste = (props) => (
         ))}
       </div>
 );
-
+// TODO PropTypes
 export default Liste;
